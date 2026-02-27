@@ -2,6 +2,9 @@ import { mount } from 'svelte'
 import './app.css'
 import App from './App.svelte'
 
+import { injectSpeedInsights } from '@vercel/speed-insights';
+injectSpeedInsights();
+
 import { registerSW } from 'virtual:pwa-register'
 
 const updateSW = registerSW({
