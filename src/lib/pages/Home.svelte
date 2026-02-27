@@ -103,27 +103,23 @@
         },
     ];
 
-    let visible = false;
     onMount(() => {
-        visible = true;
+        // trigger reflow/animations via class or just rely on CSS load
     });
 </script>
 
 <div class="home-container">
     <!-- Hero Section -->
-    <section class="hero">
-        {#if visible}
-            <div class="hero-content" in:fly={{ y: 30, duration: 1000 }}>
-                <span class="badge">PREMIUM PHYSICS COURSE</span>
-                <h1>
-                    미래를 여는<br /><span class="gradient-text"
-                        >물리학 교과서</span
-                    >
-                </h1>
-                <p class="school-name">세종고등학교</p>
-                <div class="hero-decoration"></div>
-            </div>
-        {/if}
+    <section class="hero hero-animate">
+        <div class="hero-content">
+            <span class="badge">PREMIUM PHYSICS COURSE</span>
+            <h1>
+                미래를 여는<br /><span class="gradient-text">물리학 교과서</span
+                >
+            </h1>
+            <p class="school-name">세종고등학교</p>
+            <div class="hero-decoration"></div>
+        </div>
     </section>
 
     <!-- Lecture Grid -->
@@ -134,95 +130,87 @@
         </div>
 
         <div class="lecture-grid">
-            {#if visible}
-                {#each lectures as lecture, i}
-                    <button
-                        class="lecture-card"
-                        in:fly={{ y: 50, duration: 800, delay: i * 150 }}
-                        on:click={() => navigate(`lecture_${lecture.id}`)}
-                        style="--accent-color: {lecture.accent}"
-                    >
-                        <img
-                            src={lecture.image}
-                            alt={lecture.title}
-                            class="card-bg-image"
-                        />
-                        <div class="card-overlay"></div>
+            {#each lectures as lecture, i}
+                <button
+                    class="lecture-card card-animate"
+                    style="--accent-color: {lecture.accent}; animation-delay: {i *
+                        150}ms;"
+                    on:click={() => navigate(`lecture_${lecture.id}`)}
+                >
+                    <img
+                        src={lecture.image}
+                        alt={lecture.title}
+                        class="card-bg-image"
+                    />
+                    <div class="card-overlay"></div>
 
-                        <div class="card-content">
-                            <div class="card-top">
-                                <span class="tag">{lecture.tag}</span>
-                                <span class="chapter-badge">{lecture.id}</span>
-                            </div>
+                    <div class="card-content">
+                        <div class="card-top">
+                            <span class="tag">{lecture.tag}</span>
+                            <span class="chapter-badge">{lecture.id}</span>
+                        </div>
 
-                            <div class="card-bottom">
-                                <h3>{lecture.title}</h3>
-                                <p>{lecture.subtitle}</p>
+                        <div class="card-bottom">
+                            <h3>{lecture.title}</h3>
+                            <p>{lecture.subtitle}</p>
 
-                                <div class="card-footer">
-                                    <span class="explore-btn">
-                                        <span>학습 시작</span>
-                                        <svg
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2.5"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <line x1="5" y1="12" x2="19" y2="12"
-                                            ></line>
-                                            <polyline points="12 5 19 12 12 19"
-                                            ></polyline>
-                                        </svg>
-                                    </span>
-                                </div>
+                            <div class="card-footer">
+                                <span class="explore-btn">
+                                    <span>학습 시작</span>
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <line x1="5" y1="12" x2="19" y2="12"
+                                        ></line>
+                                        <polyline points="12 5 19 12 12 19"
+                                        ></polyline>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
-                    </button>
-                {/each}
-            {/if}
+                    </div>
+                </button>
+            {/each}
         </div>
     </section>
 
     <!-- Copyright & Usage Notice -->
-    <section class="notice-section">
-        {#if visible}
-            <div
-                class="notice-box"
-                in:fly={{ y: 30, duration: 800, delay: 600 }}
-            >
-                <div class="notice-icon">🚨</div>
-                <div class="notice-content">
-                    <h3>저작권 및 이용 안내</h3>
-                    <p>
-                        본 수업 자료는 <strong>천재교과서 교사용 지도서</strong>
-                        및
-                        <strong
-                            >각종 블로그, 유튜브 등 외부 과학 지식 미디어</strong
-                        >의 시각 자료를 바탕으로 공교육 수업을 위해
-                        재구성되었습니다.
-                    </p>
-                    <p class="warning-text">
-                        오직 <strong>교내 수업 목적</strong>으로만 사용되어야
-                        하며, 화면 캡쳐 및 링크 공유 등을 통한
-                        <strong
-                            >본 사이트의 무단 배포 및 외부 유출을 엄히 금지</strong
-                        >합니다.
-                    </p>
-                    <p class="info-text">
-                        본 자료에는 <strong>오류나 오타</strong>가 포함되어 있을
-                        수 있으므로,
-                        <strong
-                            >정기 고사 전 반드시 지도교사에게 내용의 이상 유무를
-                            확인</strong
-                        >하시기 바랍니다.
-                    </p>
-                </div>
+    <section class="notice-section notice-animate">
+        <div class="notice-box">
+            <div class="notice-icon">🚨</div>
+            <div class="notice-content">
+                <h3>저작권 및 이용 안내</h3>
+                <p>
+                    본 수업 자료는 <strong>천재교과서 교사용 지도서</strong>
+                    및
+                    <strong>각종 블로그, 유튜브 등 외부 과학 지식 미디어</strong
+                    >의 시각 자료를 바탕으로 공교육 수업을 위해
+                    재구성되었습니다.
+                </p>
+                <p class="warning-text">
+                    오직 <strong>교내 수업 목적</strong>으로만 사용되어야 하며,
+                    화면 캡쳐 및 링크 공유 등을 통한
+                    <strong
+                        >본 사이트의 무단 배포 및 외부 유출을 엄히 금지</strong
+                    >합니다.
+                </p>
+                <p class="info-text">
+                    본 자료에는 <strong>오류나 오타</strong>가 포함되어 있을 수
+                    있으므로,
+                    <strong
+                        >정기 고사 전 반드시 지도교사에게 내용의 이상 유무를
+                        확인</strong
+                    >하시기 바랍니다.
+                </p>
             </div>
-        {/if}
+        </div>
     </section>
 
     <footer class="home-footer">
@@ -311,6 +299,44 @@
         );
         filter: blur(80px);
         z-index: -1;
+    }
+
+    /* CSS Animations to replace JS transitions */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes flyInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-animate {
+        animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .card-animate {
+        opacity: 0; /* Starts hidden */
+        animation: flyInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .notice-animate {
+        opacity: 0;
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: 600ms;
     }
 
     /* Grid */
