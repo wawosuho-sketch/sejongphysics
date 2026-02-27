@@ -22,8 +22,10 @@ export const lectureData = [];
 
 // 9강은 총 48개 슬라이드로 구성
 for (let i = 1; i <= 48; i++) {
-    // 1. 기본 슬라이드 이미지 푸시
-    lectureData.push(generateSlide(i));
+    // 1. 기본 슬라이드 이미지 푸시 (46, 47번 슬라이드 제외)
+    if (i !== 46 && i !== 47) {
+        lectureData.push(generateSlide(i));
+    }
 
     // 2. 시뮬레이션 및 콜아웃 (슬라이드 뒤에 추가)
     if (i === 15) {
