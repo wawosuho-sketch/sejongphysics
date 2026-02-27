@@ -3,7 +3,10 @@ import './app.css'
 import App from './App.svelte'
 
 import { injectSpeedInsights } from '@vercel/speed-insights';
+import { inject as injectAnalytics } from '@vercel/analytics';
+
 injectSpeedInsights();
+injectAnalytics();
 
 import { registerSW } from 'virtual:pwa-register'
 
