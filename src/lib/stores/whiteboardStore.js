@@ -6,7 +6,9 @@ const defaultState = {
     activeColor: '#4f46e5', // Default pen color (Accent Blue)
     activeWidth: 3,         // Default pen width
     currentTool: 'pen',     // 'pen', 'highlighter', 'eraser'
-    slideDrawings: {}       // Format: { "lectureId_slideIndex": "data:image/png;base64,..." }
+    slideDrawings: {},      // Format: { "lectureId_slideIndex": "data:image/jpeg;base64,..." }
+    currentLectureId: null, // Currently visible lecture
+    currentSlideIndex: null // Currently visible slide
 };
 
 // Try to load saved drawings from localStorage
@@ -15,7 +17,12 @@ const initialState = storedData ? { ...defaultState, slideDrawings: JSON.parse(s
 
 export const whiteboardStore = writable(initialState);
 
-// Helper function to save drawings to localStorage
+// Update which slide is currently in view (called by LecturePage)
+export function updateCurrentSlide(lectureId, slideIndex) {
+    whiteboardStore.update(s => ({ ...s, currentLectureId: lectureId, currentSlideIndex: slideIndex }));
+}
+
+// Helper function to save drawings to localStorage (JPEG compressed)
 export function saveDrawing(lectureId, slideIndex, dataUrl) {
     whiteboardStore.update(state => {
         const key = `${lectureId}_${slideIndex}`;
@@ -25,7 +32,7 @@ export function saveDrawing(lectureId, slideIndex, dataUrl) {
     });
 }
 
-// Helper function to clear a drawing
+// Helper function to clear a specific slide's drawing
 export function clearDrawing(lectureId, slideIndex) {
     whiteboardStore.update(state => {
         const key = `${lectureId}_${slideIndex}`;

@@ -5,6 +5,10 @@
     import CanvasOverlay from "../components/CanvasOverlay.svelte";
     import ToggleQuiz from "../components/ToggleQuiz.svelte";
     import Callout from "../components/Callout.svelte";
+    import {
+        whiteboardStore,
+        updateCurrentSlide,
+    } from "../stores/whiteboardStore";
 
     export let navigate;
     export let lectureId = "01"; // Default or passed from App.svelte
@@ -120,6 +124,7 @@
                     if (slideIndex) {
                         const idx = parseInt(slideIndex, 10);
                         updateUrlSilently(idx);
+                        updateCurrentSlide(lectureId, idx);
                         if (!isScrubbing) {
                             currentScrubberSlide = idx;
                         }
@@ -175,12 +180,37 @@
     }
 
     function handleKeyDown(e) {
-        if (
-            ["INPUT", "TEXTAREA", "SELECT"].includes(
-                document.activeElement.tagName,
-            )
-        )
-            return;
+        const tag = document.activeElement.tagName;
+        const isTyping = ["INPUT", "TEXTAREA", "SELECT"].includes(tag);
+
+        // D: toggle drawing mode (works even when total slides is 0)
+        if (e.key === "d" || e.key === "D") {
+            if (!isTyping) {
+                e.preventDefault();
+                whiteboardStore.update((s) => ({
+                    ...s,
+                    isDrawingMode: !s.isDrawingMode,
+                }));
+                return;
+            }
+        }
+
+        // F: toggle fullscreen
+        if (e.key === "f" || e.key === "F") {
+            if (!isTyping) {
+                e.preventDefault();
+                if (!document.fullscreenElement) {
+                    document.documentElement
+                        .requestFullscreen()
+                        .catch(() => {});
+                } else {
+                    document.exitFullscreen();
+                }
+                return;
+            }
+        }
+
+        if (isTyping) return;
 
         const totalSlides = lectureData.length;
         if (totalSlides === 0) return;
