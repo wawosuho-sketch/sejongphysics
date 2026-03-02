@@ -174,6 +174,61 @@
         }, 600);
     }
 
+    function handleKeyDown(e) {
+        if (
+            ["INPUT", "TEXTAREA", "SELECT"].includes(
+                document.activeElement.tagName,
+            )
+        )
+            return;
+
+        const totalSlides = lectureData.length;
+        if (totalSlides === 0) return;
+
+        let nextSlide = currentScrubberSlide;
+
+        switch (e.key) {
+            case "ArrowRight":
+            case "ArrowDown":
+            case "PageDown":
+            case " ":
+            case "Enter":
+                if (currentScrubberSlide < totalSlides) {
+                    nextSlide = currentScrubberSlide + 1;
+                }
+                break;
+            case "ArrowLeft":
+            case "ArrowUp":
+            case "PageUp":
+            case "Backspace":
+                if (currentScrubberSlide > 1) {
+                    nextSlide = currentScrubberSlide - 1;
+                }
+                break;
+            case "Home":
+                nextSlide = 1;
+                break;
+            case "End":
+                nextSlide = totalSlides;
+                break;
+            default:
+                return;
+        }
+
+        if (nextSlide !== currentScrubberSlide) {
+            e.preventDefault();
+            currentScrubberSlide = nextSlide;
+            scrollToSlide(nextSlide);
+        }
+    }
+
+    onMount(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    });
+
     // Fast-Design Aesthetic Configuration
     const theme = {
         background: "#0b0f19",
