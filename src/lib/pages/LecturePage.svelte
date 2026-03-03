@@ -295,7 +295,13 @@
                     <h2 class="section-title">{item.text}</h2>
                 {:else if item.type === "image"}
                     <div class="image-wrapper">
-                        <img src={item.src} alt={`Slide ${index + 1}`} />
+                        <img
+                            src={import.meta.env.BASE_URL +
+                                (item.src.startsWith("/")
+                                    ? item.src.slice(1)
+                                    : item.src)}
+                            alt={`Slide ${index + 1}`}
+                        />
                     </div>
                 {:else if item.type === "video"}
                     <div class="interactive-wrapper">

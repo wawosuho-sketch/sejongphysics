@@ -187,8 +187,8 @@
         isDrawing = false;
         ctx.closePath();
 
-        // Save after user stops drawing (JPEG compressed to save localStorage space)
-        saveDrawing(lectureId, slideIndex, canvas.toDataURL("image/jpeg", 0.6));
+        // Save after user stops drawing (PNG to preserve transparency)
+        saveDrawing(lectureId, slideIndex, canvas.toDataURL("image/png"));
     }
 </script>
 

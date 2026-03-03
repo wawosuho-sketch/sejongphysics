@@ -138,7 +138,10 @@
                     on:click={() => navigate(`lecture_${lecture.id}`)}
                 >
                     <img
-                        src={lecture.image}
+                        src={import.meta.env.BASE_URL +
+                            (lecture.image.startsWith("/")
+                                ? lecture.image.slice(1)
+                                : lecture.image)}
                         alt={lecture.title}
                         class="card-bg-image"
                     />
