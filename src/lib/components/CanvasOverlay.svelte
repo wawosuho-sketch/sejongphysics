@@ -9,6 +9,7 @@
     let ctx;
     let isDrawing = false;
     let container;
+    let lastLoadedDataUrl = null;
 
     // Default configuration for different tools
     const toolConfig = {
@@ -40,9 +41,11 @@
     // Reactive statement: Whenever savedDataUrl changes, load it into canvas
     // Wait for ctx and canvas to be ready
     $: if (ctx && canvas) {
-        if (savedDataUrl) {
+        if (savedDataUrl && savedDataUrl !== lastLoadedDataUrl) {
+            lastLoadedDataUrl = savedDataUrl;
             loadDrawing(savedDataUrl);
-        } else {
+        } else if (!savedDataUrl) {
+            lastLoadedDataUrl = null;
             // Clear canvas if no data
             clearCanvas();
         }
@@ -168,6 +171,9 @@
 
         ctx.beginPath();
         ctx.moveTo(x, y);
+        // 그려지는 점을 위해 아주 짧은 선을 하나 그립니다 (클릭만 해도 점이 찍히거나 지워짐)
+        ctx.lineTo(x, y + 0.1);
+        ctx.stroke();
     }
 
     function draw(e) {
@@ -193,7 +199,9 @@
         ctx.closePath();
 
         // Save after user stops drawing (PNG to preserve transparency)
-        saveDrawing(lectureId, slideIndex, canvas.toDataURL("image/png"));
+        const dataUrl = canvas.toDataURL("image/png");
+        lastLoadedDataUrl = dataUrl; // 방금 저장한 이미지를 다시 불러오는 것을 방지
+        saveDrawing(lectureId, slideIndex, dataUrl);
     }
 </script>
 
