@@ -28,7 +28,7 @@
             // "destination-out" removes pixels from the canvas to make it transparent
             globalCompositeOperation: "destination-out",
             getStrokeStyle: () => "rgba(0,0,0,1)",
-            getLineWidth: (width) => width * 10, // Very thick eraser
+            getLineWidth: (width) => width * 1.5, // 지우개 두께를 펜과 비슷하게 설정
         },
     };
 
