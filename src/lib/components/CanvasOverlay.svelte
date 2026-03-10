@@ -110,9 +110,14 @@
 
         const img = new Image();
         img.onload = () => {
+            const tempComposite = ctx.globalCompositeOperation;
+            ctx.globalCompositeOperation = "source-over"; // Reset for drawing image
+
             clearCanvas(); // Clear before drawing new image
             // Draw image scaled to fit current canvas size
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            ctx.globalCompositeOperation = tempComposite; // Restore
         };
         img.src = dataUrl;
     }
