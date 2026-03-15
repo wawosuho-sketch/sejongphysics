@@ -10,7 +10,7 @@
             title: "1강. 물리학이란",
             subtitle: "물리학의 정의와 발전 맛보기",
             tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_01.png",
+            image: "/images/thumbnails/lecture_01.webp",
             accent: "#4f46e5",
         },
         {
@@ -18,7 +18,7 @@
             title: "2강. 힘과 에너지 (1차시)",
             subtitle: "돌림힘과 구조물의 평형 조건",
             tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_02.png",
+            image: "/images/thumbnails/lecture_02.webp",
             accent: "#6366f1",
         },
         {
@@ -26,7 +26,7 @@
             title: "3강. 힘과 에너지 (2차시)",
             subtitle: "힘과 운동",
             tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_03.png",
+            image: "/images/thumbnails/lecture_03.webp",
             accent: "#818cf8",
         },
         {
@@ -34,7 +34,7 @@
             title: "4강. 힘과 에너지 (3차시)",
             subtitle: "일과 에너지",
             tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_04.png",
+            image: "/images/thumbnails/lecture_04.webp",
             accent: "#a78bfa",
         },
         {
@@ -42,7 +42,7 @@
             title: "5강. 힘과 에너지 (4차시)",
             subtitle: "충격량과 운동량의 관계",
             tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_05.png",
+            image: "/images/thumbnails/lecture_05.webp",
             accent: "#c084fc",
         },
         {
@@ -50,7 +50,7 @@
             title: "6강. 전기와 자기 (1차시)",
             subtitle: "전기력과 마찰전기, 정전기 유도",
             tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_06.png",
+            image: "/images/thumbnails/lecture_06.webp",
             accent: "#e879f9",
         },
         {
@@ -58,7 +58,7 @@
             title: "7강. 전기와 자기 (2차시)",
             subtitle: "축전기",
             tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_07.png", // 썸네일 필요시 추후 추가
+            image: "/images/thumbnails/lecture_07.webp", // 썸네일 필요시 추후 추가
             accent: "#f43f5e",
         },
         {
@@ -66,7 +66,7 @@
             title: "8강. 전기와 자기 (3차시)",
             subtitle: "자기 현상과 로렌츠 힘",
             tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_08.png",
+            image: "/images/thumbnails/lecture_08.webp",
             accent: "#0ea5e9", // Custom premium blue
         },
         {
@@ -74,7 +74,7 @@
             title: "9강. 전기와 자기 (4차시)",
             subtitle: "전기자기 유도",
             tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_09.png",
+            image: "/images/thumbnails/lecture_09.webp",
             accent: "#f59e0b",
         },
         {
@@ -82,7 +82,7 @@
             title: "10강. 빛과 물질 (1차시)",
             subtitle: "빛의 파동성 (간섭과 편광)",
             tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_10.png",
+            image: "/images/thumbnails/lecture_10.webp",
             accent: "#10b981",
         },
         {
@@ -90,7 +90,7 @@
             title: "11강. 빛과 물질 (2차시)",
             subtitle: "기하 광학 (렌즈와 거울)",
             tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_11.png",
+            image: "/images/thumbnails/lecture_11.webp",
             accent: "#059669", // Deeper Emerald
         },
         {
@@ -98,7 +98,7 @@
             title: "12강. 빛과 물질 (3차시)",
             subtitle: "빛의 입자성 (광전 효과와 콤프턴 산란)",
             tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_12.png",
+            image: "/images/thumbnails/lecture_12.webp",
             accent: "#047857", // Deepest Teal/Emerald
         },
     ];

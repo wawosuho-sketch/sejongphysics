@@ -14,7 +14,7 @@
 const baseImageName = '2강. 힘과 에너지 1차시(돌림힘과 평형)_';
 const generateSlide = (num) => ({
     type: 'image',
-    src: `/images/lecture_2/${baseImageName}${num}.png`
+    src: `/images/lecture_2/${baseImageName}${num}.webp`
 });
 
 /** @type {LectureItem[]} */

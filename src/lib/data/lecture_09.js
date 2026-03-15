@@ -14,7 +14,7 @@
 /** @returns {LectureItem} */
 const generateSlide = (num) => ({
     type: 'image',
-    src: `/images/lecture_9/slide_${num}.png`
+    src: `/images/lecture_9/slide_${num}.webp`
 });
 
 /** @type {LectureItem[]} */

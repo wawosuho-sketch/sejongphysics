@@ -12,13 +12,13 @@
 /** @type {LectureItem[]} */
 export const lectureData = [
   // 1. 물리학이란 (도입부)
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._1.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._2.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._3.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._4.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._5.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._6.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._7.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._1.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._2.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._3.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._4.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._5.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._6.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._7.webp' },
 
   // [AI 보조자료 자동 삽입] 중간 개념 확인 퀴즈 1
   {
@@ -29,7 +29,7 @@ export const lectureData = [
   },
 
   // 8. 갈릴레이 사고 실험 (역학)
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._8.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._8.webp' },
 
   // [AI 보조자료 자동 삽입] 8번 슬라이드 갈릴레이 빗면 사고 실험 관련 시뮬레이션
   {
@@ -38,12 +38,12 @@ export const lectureData = [
     title: '직접 해보는 갈릴레이의 역학적 에너지 보존 실험'
   },
 
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._9.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._10.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._11.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._9.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._10.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._11.webp' },
 
   // 12. 외르스테드와 패러데이
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._12.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._12.webp' },
 
   // [AI 보조자료 자동 삽입] 12번 슬라이드 전자기 유도 시뮬레이션
   {
@@ -52,7 +52,7 @@ export const lectureData = [
     title: '패러데이의 전자기 유도 법칙 시뮬레이션'
   },
 
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._13.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._13.webp' },
 
   // [AI 보조자료 자동 삽입] 중간 개념 확인 퀴즈 2
   {
@@ -63,7 +63,7 @@ export const lectureData = [
   },
 
   // 14. 무선 충전, 자이로드롭 원리
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._14.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._14.webp' },
 
   // [AI 보조자료 자동 삽입] 무선 충전 원리 유튜브 영상
   {
@@ -72,14 +72,14 @@ export const lectureData = [
     title: '자이로드롭 제동 / 무선 충전의 전자기 유도 원리 영상'
   },
 
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._15.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._16.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._17.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._18.png' },
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._19.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._15.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._16.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._17.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._18.webp' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._19.webp' },
 
   // 20. 왜 역학부터 배우는가
-  { type: 'image', src: '/images/lecture_1/1강 물리학이란._20.png' },
+  { type: 'image', src: '/images/lecture_1/1강 물리학이란._20.webp' },
 
   // [AI 보조자료 자동 삽입] 마무리 퀴즈
   {
