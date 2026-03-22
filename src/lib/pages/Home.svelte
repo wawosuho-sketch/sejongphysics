@@ -122,6 +122,39 @@
         </div>
     </section>
 
+    <!-- Action Center -->
+    <section class="action-center action-animate">
+        <div class="action-grid">
+            <!-- Homework Submission -->
+            <a href="https://clipo.ai/students/homeworks/4OA4S9_cTE-y96CD1o3ySQ" target="_blank" rel="noopener noreferrer" class="action-card primary-action">
+                <div class="action-icon">📝</div>
+                <div class="action-content">
+                    <h3>과제 제출하기</h3>
+                    <p>Clipo AI 플랫폼으로 이동하여 부여받은 과제를 제출합니다.</p>
+                </div>
+                <div class="action-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+            </a>
+
+            <!-- Physics Problems -->
+            <div class="action-card secondary-action">
+                <div class="action-header">
+                    <div class="action-icon">📚</div>
+                    <div class="action-content">
+                        <h3>역학 문제 모음</h3>
+                        <p>주요 단원별 기출 및 연습 문제를 다운로드하여 풀어보세요.</p>
+                    </div>
+                </div>
+                <div class="download-buttons">
+                    <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" download class="dl-btn">등가속도 운동</a>
+                    <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" download class="dl-btn">힘과 운동</a>
+                    <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" download class="dl-btn">에너지 보존</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Lecture Grid -->
     <section class="lecture-section">
         <div class="section-header">
@@ -340,6 +373,144 @@
         opacity: 0;
         animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         animation-delay: 600ms;
+    }
+
+    /* Action Center */
+    .action-center {
+        max-width: 1000px;
+        margin: -1rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 20;
+    }
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 1.5rem;
+    }
+
+    .action-card {
+        background: rgba(17, 24, 39, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: #fff;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+    }
+    
+    .primary-action:hover {
+        transform: translateY(-5px);
+        background: rgba(79, 70, 229, 0.15);
+        border-color: rgba(99, 102, 241, 0.5);
+        box-shadow: 0 15px 35px -10px rgba(79, 70, 229, 0.3);
+    }
+
+    .secondary-action {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .secondary-action .action-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .action-icon {
+        font-size: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+
+    .action-content h3 {
+        margin: 0 0 0.3rem 0;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .action-content p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #94a3b8;
+        line-height: 1.5;
+    }
+
+    .action-arrow {
+        margin-left: auto;
+        color: #6366f1;
+        transition: transform 0.3s;
+        align-self: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .primary-action:hover .action-arrow {
+        transform: translateX(5px);
+    }
+
+    .download-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .dl-btn {
+        background: rgba(255, 255, 255, 0.05);
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .dl-btn::before {
+        content: '↓';
+        color: #818cf8;
+        font-weight: 800;
+    }
+
+    .dl-btn:hover {
+        background: rgba(99, 102, 241, 0.2);
+        border-color: rgba(99, 102, 241, 0.5);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .action-animate {
+        opacity: 0;
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: 300ms;
+    }
+
+    @media (max-width: 768px) {
+        .action-grid {
+            grid-template-columns: 1fr;
+        }
+        .action-center {
+            margin-top: 0;
+        }
     }
 
     /* Grid */
