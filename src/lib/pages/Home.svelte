@@ -377,8 +377,8 @@
 
     /* Action Center */
     .action-center {
-        max-width: 1000px;
-        margin: -1rem auto 4rem;
+        max-width: 900px;
+        margin: -0.5rem auto 3rem;
         padding: 0 2rem;
         position: relative;
         z-index: 20;
@@ -387,17 +387,17 @@
     .action-grid {
         display: grid;
         grid-template-columns: 1fr 1.5fr;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .action-card {
         background: rgba(17, 24, 39, 0.7);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 1.5rem;
+        border-radius: 16px;
+        padding: 1rem;
         display: flex;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.8rem;
         text-decoration: none;
         color: #fff;
         backdrop-filter: blur(10px);
@@ -414,39 +414,39 @@
 
     .secondary-action {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.6rem;
     }
 
     .secondary-action .action-header {
         display: flex;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.8rem;
     }
 
     .action-icon {
-        font-size: 2rem;
+        font-size: 1.2rem;
         background: rgba(255, 255, 255, 0.05);
-        width: 50px;
-        height: 50px;
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 12px;
+        border-radius: 8px;
         flex-shrink: 0;
     }
 
     .action-content h3 {
-        margin: 0 0 0.3rem 0;
-        font-size: 1.2rem;
+        margin: 0 0 0.2rem 0;
+        font-size: 1rem;
         font-weight: 700;
         color: #fff;
     }
 
     .action-content p {
         margin: 0;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #94a3b8;
-        line-height: 1.5;
+        line-height: 1.4;
     }
 
     .action-arrow {
@@ -458,31 +458,36 @@
         align-items: center;
     }
 
+    .action-arrow svg {
+        width: 18px;
+        height: 18px;
+    }
+
     .primary-action:hover .action-arrow {
         transform: translateX(5px);
     }
 
     .download-buttons {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
         flex-wrap: wrap;
         width: 100%;
-        margin-top: 0.5rem;
+        margin-top: 0.2rem;
     }
 
     .dl-btn {
         background: rgba(255, 255, 255, 0.05);
         color: #e2e8f0;
         text-decoration: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
         font-weight: 600;
         border: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.2s;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
     }
 
     .dl-btn::before {
