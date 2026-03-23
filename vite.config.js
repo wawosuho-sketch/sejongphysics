@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
+mport { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? '/sejongphysics/' : '/',
+  base: '/', // <--- 이 부분을 단순하게 수정했습니다.
   plugins: [
     svelte(),
     VitePWA({
