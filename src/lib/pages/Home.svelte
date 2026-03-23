@@ -143,13 +143,13 @@
                     <div class="action-icon">📚</div>
                     <div class="action-content">
                         <h3>역학 문제 모음</h3>
-                        <p>주요 단원별 기출 및 연습 문제를 다운로드하여 풀어보세요.</p>
+                        <p>주요 단원별 기출 및 연습 문제를 새 창에서 열어 풀어보세요.</p>
                     </div>
                 </div>
                 <div class="download-buttons">
-                    <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" download class="dl-btn">등가속도 운동</a>
-                    <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" download class="dl-btn">힘과 운동</a>
-                    <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" download class="dl-btn">에너지 보존</a>
+                    <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">등가속도 운동</a>
+                    <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">힘과 운동</a>
+                    <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">에너지 보존</a>
                 </div>
             </div>
         </div>
@@ -491,7 +491,7 @@
     }
 
     .dl-btn::before {
-        content: '↓';
+        content: '↗';
         color: #818cf8;
         font-weight: 800;
     }
