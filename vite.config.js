@@ -10,6 +10,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
+      workbox: {
+        navigateFallbackDenylist: [/^\/resources/],
+      },
       manifest: {
         name: '세종고 물리 교과서',
         short_name: '물리 교과서',
