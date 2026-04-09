@@ -4,6 +4,9 @@
 
     export let navigate;
 
+    // 해설지 공개 기간 (3주 뒤인 2026-05-01 00:00:00 까지)
+    const isSolutionVisible = new Date() < new Date("2026-05-01T00:00:00+09:00");
+
     const lectures = [
         {
             id: "01",
@@ -147,9 +150,24 @@
                     </div>
                 </div>
                 <div class="download-buttons">
-                    <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">등가속도 운동</a>
-                    <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">힘과 운동</a>
-                    <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">에너지 보존</a>
+                    <div class="problem-group">
+                        <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">등가속도 운동</a>
+                        {#if isSolutionVisible}
+                            <a href="{import.meta.env.BASE_URL}resources/등가속도 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                        {/if}
+                    </div>
+                    <div class="problem-group">
+                        <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">힘과 운동</a>
+                        {#if isSolutionVisible}
+                            <a href="{import.meta.env.BASE_URL}resources/힘과운동 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                        {/if}
+                    </div>
+                    <div class="problem-group">
+                        <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">에너지 보존</a>
+                        {#if isSolutionVisible}
+                            <a href="{import.meta.env.BASE_URL}resources/일-에너지보존 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                        {/if}
+                    </div>
                 </div>
             </div>
         </div>
@@ -469,10 +487,19 @@
 
     .download-buttons {
         display: flex;
-        gap: 0.4rem;
+        gap: 0.6rem;
         flex-wrap: wrap;
         width: 100%;
         margin-top: 0.2rem;
+    }
+
+    .problem-group {
+        display: inline-flex;
+        gap: 0.2rem;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.2rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .dl-btn {
@@ -501,6 +528,23 @@
         border-color: rgba(99, 102, 241, 0.5);
         color: #fff;
         transform: translateY(-2px);
+    }
+
+    .solution-btn {
+        background: rgba(16, 185, 129, 0.1);
+        color: #34d399; /* Emerald-400 */
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .solution-btn::before {
+        content: '💡';
+        color: inherit;
+    }
+
+    .solution-btn:hover {
+        background: rgba(16, 185, 129, 0.25);
+        border-color: rgba(16, 185, 129, 0.6);
+        color: #fff;
     }
 
     .action-animate {
