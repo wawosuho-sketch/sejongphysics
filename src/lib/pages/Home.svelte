@@ -1,126 +1,64 @@
 <script>
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
+    import { textbooks } from "../data/textbooks.js";
 
     export let navigate;
+
+    let selectedBookId = "physics";
 
     // 해설지 공개 기간 (3주 뒤인 2026-05-01 00:00:00 까지)
     const isSolutionVisible = new Date() < new Date("2026-05-01T00:00:00+09:00");
 
-    const lectures = [
-        {
-            id: "01",
-            title: "1강. 물리학이란",
-            subtitle: "물리학의 정의와 발전 맛보기",
-            tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_01.webp",
-            accent: "#4f46e5",
-        },
-        {
-            id: "02",
-            title: "2강. 힘과 에너지 (1차시)",
-            subtitle: "돌림힘과 구조물의 평형 조건",
-            tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_02.webp",
-            accent: "#6366f1",
-        },
-        {
-            id: "03",
-            title: "3강. 힘과 에너지 (2차시)",
-            subtitle: "힘과 운동",
-            tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_03.webp",
-            accent: "#818cf8",
-        },
-        {
-            id: "04",
-            title: "4강. 힘과 에너지 (3차시)",
-            subtitle: "일과 에너지",
-            tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_04.webp",
-            accent: "#a78bfa",
-        },
-        {
-            id: "05",
-            title: "5강. 힘과 에너지 (4차시)",
-            subtitle: "충격량과 운동량의 관계",
-            tag: "I. 역학 파트",
-            image: "/images/thumbnails/lecture_05.webp",
-            accent: "#c084fc",
-        },
-        {
-            id: "06",
-            title: "6강. 전기와 자기 (1차시)",
-            subtitle: "전기력과 마찰전기, 정전기 유도",
-            tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_06.webp",
-            accent: "#e879f9",
-        },
-        {
-            id: "07",
-            title: "7강. 전기와 자기 (2차시)",
-            subtitle: "축전기",
-            tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_07.webp", // 썸네일 필요시 추후 추가
-            accent: "#f43f5e",
-        },
-        {
-            id: "08",
-            title: "8강. 전기와 자기 (3차시)",
-            subtitle: "자기 현상과 로렌츠 힘",
-            tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_08.webp",
-            accent: "#0ea5e9", // Custom premium blue
-        },
-        {
-            id: "09",
-            title: "9강. 전기와 자기 (4차시)",
-            subtitle: "전기자기 유도",
-            tag: "II. 전자기 파트",
-            image: "/images/thumbnails/lecture_09.webp",
-            accent: "#f59e0b",
-        },
-        {
-            id: "10",
-            title: "10강. 빛과 물질 (1차시)",
-            subtitle: "빛의 파동성 (간섭과 편광)",
-            tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_10.webp",
-            accent: "#10b981",
-        },
-        {
-            id: "11",
-            title: "11강. 빛과 물질 (2차시)",
-            subtitle: "기하 광학 (렌즈와 거울)",
-            tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_11.webp",
-            accent: "#059669", // Deeper Emerald
-        },
-        {
-            id: "12",
-            title: "12강. 빛과 물질 (3차시)",
-            subtitle: "빛의 입자성 (광전 효과와 콤프턴 산란)",
-            tag: "III. 빛과 물질 파트",
-            image: "/images/thumbnails/lecture_12.webp",
-            accent: "#047857", // Deepest Teal/Emerald
-        },
-    ];
+    $: activeBook = textbooks.find(b => b.id === selectedBookId) || textbooks[0];
+    $: lectures = activeBook.lectures;
+    $: problems = activeBook.problems;
 
     onMount(() => {
-        // trigger reflow/animations via class or just rely on CSS load
+        const params = new URLSearchParams(window.location.search);
+        const bookParam = params.get("book");
+        if (bookParam && textbooks.some(b => b.id === bookParam)) {
+            selectedBookId = bookParam;
+        }
     });
+
+    function selectBook(id) {
+        selectedBookId = id;
+        const url = new URL(window.location.href);
+        url.searchParams.set("book", id);
+        window.history.replaceState({}, "", url);
+    }
 </script>
 
 <div class="home-container">
+    <!-- Textbook Selector Navigation Bar -->
+    <nav class="textbook-nav">
+        <div class="nav-content">
+            <span class="nav-label">교과서 선택:</span>
+            <div class="tab-group">
+                {#each textbooks as book}
+                    <button
+                        class="tab-btn"
+                        class:active={selectedBookId === book.id}
+                        on:click={() => selectBook(book.id)}
+                    >
+                        <span class="tab-name">{book.name}</span>
+                        <span class="tab-badge">{book.lectures.length}강</span>
+                    </button>
+                {/each}
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero hero-animate">
         <div class="hero-content">
-            <span class="badge">PREMIUM PHYSICS COURSE</span>
+            <span class="badge">{activeBook.badge}</span>
             <h1>
-                미래를 여는<br /><span class="gradient-text">물리학 교과서</span
+                미래를 여는<br /><span class="gradient-text">{activeBook.name} 교과서</span
                 >
             </h1>
-            <p class="school-name">세종고등학교</p>
+            <p class="school-name">{activeBook.school} — {activeBook.description}</p>
             <div class="hero-decoration"></div>
         </div>
     </section>
@@ -129,7 +67,7 @@
     <section class="action-center action-animate">
         <div class="action-grid">
             <!-- Homework Submission -->
-            <a href="https://clipo.ai/students/homeworks/4OA4S9_cTE-y96CD1o3ySQ" target="_blank" rel="noopener noreferrer" class="action-card primary-action">
+            <a href={activeBook.homeworkUrl} target="_blank" rel="noopener noreferrer" class="action-card primary-action">
                 <div class="action-icon">📝</div>
                 <div class="action-content">
                     <h3>과제 제출하기</h3>
@@ -145,29 +83,19 @@
                 <div class="action-header">
                     <div class="action-icon">📚</div>
                     <div class="action-content">
-                        <h3>역학 문제 모음</h3>
+                        <h3>{activeBook.name} 문제 모음</h3>
                         <p>주요 단원별 기출 및 연습 문제를 새 창에서 열어 풀어보세요.</p>
                     </div>
                 </div>
                 <div class="download-buttons">
-                    <div class="problem-group">
-                        <a href="{import.meta.env.BASE_URL}resources/등가속도.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">등가속도 운동</a>
-                        {#if isSolutionVisible}
-                            <a href="{import.meta.env.BASE_URL}resources/등가속도 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
-                        {/if}
-                    </div>
-                    <div class="problem-group">
-                        <a href="{import.meta.env.BASE_URL}resources/힘과운동.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">힘과 운동</a>
-                        {#if isSolutionVisible}
-                            <a href="{import.meta.env.BASE_URL}resources/힘과운동 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
-                        {/if}
-                    </div>
-                    <div class="problem-group">
-                        <a href="{import.meta.env.BASE_URL}resources/역학적에너지보존.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn">에너지 보존</a>
-                        {#if isSolutionVisible}
-                            <a href="{import.meta.env.BASE_URL}resources/일-에너지보존 해설.pdf" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
-                        {/if}
-                    </div>
+                    {#each problems as prob}
+                        <div class="problem-group">
+                            <a href="{import.meta.env.BASE_URL}{prob.pdf}" target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
+                            {#if isSolutionVisible && prob.solution}
+                                <a href="{import.meta.env.BASE_URL}{prob.solution}" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                            {/if}
+                        </div>
+                    {/each}
                 </div>
             </div>
         </div>
@@ -176,32 +104,34 @@
     <!-- Lecture Grid -->
     <section class="lecture-section">
         <div class="section-header">
-            <h2>강의 커리큘럼</h2>
+            <h2>{activeBook.name} 강의 커리큘럼</h2>
             <div class="header-line"></div>
         </div>
 
         <div class="lecture-grid">
-            {#each lectures as lecture, i}
+            {#each lectures as lecture, i (lecture.fullId || lecture.id)}
                 <button
                     class="lecture-card card-animate"
                     style="--accent-color: {lecture.accent}; animation-delay: {i *
-                        150}ms;"
-                    on:click={() => navigate(`lecture_${lecture.id}`)}
+                        100}ms;"
+                    on:click={() => navigate(`lecture_${lecture.fullId || lecture.id}`)}
                 >
-                    <img
-                        src={import.meta.env.BASE_URL +
-                            (lecture.image.startsWith("/")
-                                ? lecture.image.slice(1)
-                                : lecture.image)}
-                        alt={lecture.title}
-                        class="card-bg-image"
-                    />
+                    {#if lecture.image}
+                        <img
+                            src={import.meta.env.BASE_URL +
+                                (lecture.image.startsWith("/")
+                                    ? lecture.image.slice(1)
+                                    : lecture.image)}
+                            alt={lecture.title}
+                            class="card-bg-image"
+                        />
+                    {/if}
                     <div class="card-overlay"></div>
 
                     <div class="card-content">
                         <div class="card-top">
                             <span class="tag">{lecture.tag}</span>
-                            <span class="chapter-badge">{lecture.id}</span>
+                            <span class="chapter-badge">{lecture.id.replace(/^(physics_|mech_)/, '')}</span>
                         </div>
 
                         <div class="card-bottom">
@@ -287,6 +217,89 @@
             "Pretendard",
             -apple-system,
             sans-serif;
+    }
+
+    /* Textbook Nav Bar */
+    .textbook-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(5, 7, 10, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0.8rem 2rem;
+    }
+
+    .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #94a3b8;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+    }
+
+    .tab-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #cbd5e1;
+        padding: 0.55rem 1.2rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .tab-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+    }
+
+    .tab-btn.active {
+        background: linear-gradient(135deg, rgba(79, 70, 229, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
+        border-color: rgba(129, 140, 248, 0.6);
+        color: #ffffff;
+        box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.4);
+    }
+
+    .tab-name {
+        letter-spacing: -0.3px;
+    }
+
+    .tab-badge {
+        font-size: 0.72rem;
+        font-weight: 800;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.15rem 0.45rem;
+        border-radius: 20px;
+        color: #a5b4fc;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tab-btn.active .tab-badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
     }
 
     /* Hero */

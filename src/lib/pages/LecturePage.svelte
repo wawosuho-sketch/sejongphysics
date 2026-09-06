@@ -10,6 +10,8 @@
         updateCurrentSlide,
     } from "../stores/whiteboardStore";
 
+    import { getLectureMeta } from "../data/textbooks.js";
+
     export let navigate;
     export let lectureId = "01"; // Default or passed from App.svelte
     export let initialSlide = 1;
@@ -24,79 +26,32 @@
     let currentScrubberSlide = 1;
     let isScrubbing = false;
 
-    const lectureMeta = {
-        "01": {
-            title: "1강. 물리학이란",
-            subtitle: "물리학의 매력적인 세계로의 첫걸음",
-        },
-        "02": {
-            title: "2강. 힘과 에너지 (1차시)",
-            subtitle: "돌림힘과 구조물의 평형 조건",
-        },
-        "03": {
-            title: "3강. 힘과 에너지 (2차시)",
-            subtitle: "일-에너지 정리와 역학적 에너지 보존",
-        },
-        "04": {
-            title: "4강. 힘과 에너지 (3차시)",
-            subtitle: "상대 속도와 운동량 보존 법칙",
-        },
-        "05": {
-            title: "5강. 힘과 에너지 (4차시)",
-            subtitle: "충격량과 운동량의 관계",
-        },
-        "06": {
-            title: "6강. 전기와 자기 (1차시)",
-            subtitle: "전기력과 마찰전기, 정전기 유도",
-        },
-        "07": {
-            title: "7강. 전기와 자기 (2차시)",
-            subtitle: "전류에 의한 자기 작용",
-        },
-        "08": {
-            title: "8강. 전기와 자기 (3차시)",
-            subtitle: "자기 현상과 로렌츠 힘",
-        },
-        "09": {
-            title: "9강. 전기와 자기 (4차시)",
-            subtitle: "전자기 유도",
-        },
-        "10": {
-            title: "10강. 빛과 물질 (1차시)",
-            subtitle: "빛의 파동성 (간섭과 편광)",
-        },
-        "11": {
-            title: "11강. 빛과 물질 (2차시)",
-            subtitle: "기하 광학 (렌즈와 거울)",
-        },
-        "12": {
-            title: "12강. 빛과 물질 (3차시)",
-            subtitle: "빛의 입자성 (광전 효과와 콤프턴 산란)",
-        },
-    };
-
     $: {
-        if (lectureMeta[lectureId]) {
-            title = lectureMeta[lectureId].title;
-            subtitle = lectureMeta[lectureId].subtitle;
+        const meta = getLectureMeta(lectureId);
+        title = meta.title;
+        subtitle = meta.subtitle;
 
-            // Dynamically import the data file based on ID
-            import(`../data/lecture_${lectureId}.js`)
-                .then(async (module) => {
-                    lectureData = module.lectureData;
-                    lastHandledSlide = initialSlide;
-
-                    await tick(); // Wait for DOM to render
-                    setupObserver();
-
-                    if (initialSlide > 1) {
-                        scrollToSlide(initialSlide);
-                    }
-                })
-                .catch((err) => {
-                    console.error("Lecture data not found", err);
-                });
+        let dataFileName = lectureId;
+        if (/^\d+$/.test(lectureId)) {
+            dataFileName = `lecture_${lectureId.padStart(2, "0")}`;
         }
+
+        import(`../data/${dataFileName}.js`)
+            .then(async (module) => {
+                lectureData = module.lectureData;
+                lastHandledSlide = initialSlide;
+
+                await tick(); // Wait for DOM to render
+                setupObserver();
+
+                if (initialSlide > 1) {
+                    scrollToSlide(initialSlide);
+                }
+            })
+            .catch((err) => {
+                console.error("Lecture data not found for", dataFileName, err);
+                lectureData = [];
+            });
     }
 
     // React to browser Back/Forward updates
