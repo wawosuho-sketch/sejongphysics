@@ -177,10 +177,10 @@ export const textbooks = [
       {
         id: "mech_02",
         fullId: "mech_02",
-        title: "2강. 일과 역학적 에너지",
-        subtitle: "일-에너지 정리와 에너지 보존 법칙",
-        tag: "I. 힘과 운동",
-        image: "/images/thumbnails/mech_02.webp",
+        title: "2강. 특수상대성이론",
+        subtitle: "상대성 원리, 광속 불변, 시간 지연, 길이 수축 및 질량-에너지 동등성",
+        tag: "I. 시공간과 상대성",
+        image: "/images/slides/mech_02/slide_01.webp",
         accent: "#f97316"
       },
       {
