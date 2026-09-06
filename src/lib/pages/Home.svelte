@@ -72,7 +72,8 @@
         </div>
     </section>
 
-    <!-- Action Center -->
+    <!-- Action Center (Hidden per user request: 교과서 변경에 따른 숨김 처리) -->
+    {#if false}
     <section class="action-center action-animate">
         <div class="action-grid">
             <!-- Homework Submission -->
@@ -109,6 +110,7 @@
             </div>
         </div>
     </section>
+    {/if}
 
     <!-- Lecture Grid -->
     <section class="lecture-section">
