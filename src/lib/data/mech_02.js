@@ -7,7 +7,7 @@ export const lectureData = [
     type: "callout",
     style: "info",
     title: "📖 학습 안내: 특수상대성이론 전체 단원",
-    content: "본 강의는 110장의 강의 슬라이드와 **JavaLab 시뮬레이션**, **개념 동영상**, **KaTeX 수식 정리**, **개념 확인 퀴즈**를 결합한 특수상대성이론 통합 강의 자료입니다."
+    content: "본 강의는 110장의 강의 슬라이드와 **자바실험실 시뮬레이션**, **KaTeX 수식 정리**, **개념 확인 퀴즈**를 결합한 특수상대성이론 통합 강의 자료입니다."
   },
 
   // ====================================================
@@ -47,12 +47,6 @@ export const lectureData = [
     content: "• 등속도로 운동하는 모든 관성계에서 역학의 운동 법칙은 동일하게 성립합니다.\n• 갈릴레이 변환: $x' = x - vt, \\quad y' = y, \\quad z' = z, \\quad t' = t$\n• 고전역학에서는 시간 $t$가 모든 관찰자에게 동일한 절대적 시간으로 다루어집니다."
   },
   {
-    type: "simulation",
-    title: "🕹️ 직접 탐구: 관성계와 상대 운동 실험실 (JavaLab)",
-    src: "https://javalab.org/category/measure/relativity-ko/",
-    height: "600"
-  },
-  {
     type: "quiz",
     title: "💡 개념 확인 퀴즈 1: 갈릴레이 상대성 원리",
     question: "일정한 속도 $v$로 달리는 기차 내부에서 공을 위로 똑바로 던져 올렸을 때, 기차 안 관찰자와 지상 정지 관찰자가 보는 공의 운동 궤적은 각각 무엇인가?",
@@ -85,6 +79,12 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_02/slide_35.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_36.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_37.webp" },
+  {
+    type: "simulation",
+    title: "🕹️ 직접 탐구: 동시성의 상대성 시뮬레이션 (자바실험실)",
+    src: "https://javalab.org/ko/relativity_of_simultaneity/",
+    height: "650"
+  },
   { type: "image", src: "/images/slides/mech_02/slide_38.webp" },
 
   {
@@ -92,11 +92,6 @@ export const lectureData = [
     style: "warning",
     title: "📌 수식 핵심: 특수상대성이론의 2대 기본 가설",
     content: "1) 상대성 원리: 모든 관성계에서 물리 법칙은 동일한 형태로 적용된다.\n2) 광속 불변 원리: 진공에서의 빛의 속도 $c$는 관찰자나 광원의 운동 상태와 무관하게 항상 일정하다 ($c \\approx 3 \\times 10^8 \\text{m/s}$)."
-  },
-  {
-    type: "video",
-    title: "📺 추천 영상: 빛과 시간, 아인슈타인의 특수상대성이론",
-    src: "https://www.youtube.com/watch?v=1_5w_2K8d_k"
   },
   {
     type: "quiz",
@@ -120,6 +115,12 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_02/slide_42.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_43.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_44.webp" },
+  {
+    type: "simulation",
+    title: "🕹️ 직접 탐구: 특수상대성이론 시뮬레이션 (자바실험실)",
+    src: "https://javalab.org/ko/special_relativity/",
+    height: "650"
+  },
   { type: "image", src: "/images/slides/mech_02/slide_45.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_46.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_47.webp" },
@@ -130,6 +131,12 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_02/slide_52.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_53.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_54.webp" },
+  {
+    type: "simulation",
+    title: "🕹️ 직접 탐구: 특수상대성이론 2 시뮬레이션 (자바실험실)",
+    src: "https://javalab.org/ko/special_relativity_2/",
+    height: "650"
+  },
   { type: "image", src: "/images/slides/mech_02/slide_55.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_56.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_57.webp" },
@@ -147,17 +154,6 @@ export const lectureData = [
     style: "info",
     title: "📌 수식 핵심: 시간 지연과 길이 수축 공식",
     content: "로런츠 인자 $\\gamma = \\frac{1}{\\sqrt{1 - v^2/c^2}} \\ge 1$ 에 대하여:\n• 시간 지연 (Time Dilation): $t = \\gamma t_0 = \\frac{t_0}{\\sqrt{1 - v^2/c^2}}$ (운동하는 계의 시계가 천천히 흘러감)\n• 길이 수축 (Length Contraction): $L = \\frac{L_0}{\\gamma} = L_0 \\sqrt{1 - v^2/c^2}$ (운동 방향으로 고유 길이 $L_0$가 줄어듦)\n• 고유 시간 $t_0$ 및 고유 길이 $L_0$는 관찰 대상에 대해 정지한 좌표계에서 측정한 값입니다."
-  },
-  {
-    type: "simulation",
-    title: "🕹️ 직접 탐구: 시간 지연과 길이 수축 실시간 실험 (JavaLab)",
-    src: "https://javalab.org/category/measure/relativity-ko/",
-    height: "600"
-  },
-  {
-    type: "video",
-    title: "📺 추천 영상: 뮤온의 수명과 시간 지연 증명 실험",
-    src: "https://www.youtube.com/watch?v=rVzDP8SMhPo"
   },
   {
     type: "quiz",
@@ -179,11 +175,23 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_02/slide_67.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_68.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_69.webp" },
+  {
+    type: "simulation",
+    title: "🕹️ 직접 탐구: 시공간 그래프 시뮬레이션 (자바실험실)",
+    src: "https://javalab.org/ko/spacetime/",
+    height: "650"
+  },
   { type: "image", src: "/images/slides/mech_02/slide_70.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_71.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_72.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_73.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_74.webp" },
+  {
+    type: "simulation",
+    title: "🕹️ 직접 탐구: 쌍둥이 역설 시뮬레이션 (자바실험실)",
+    src: "https://javalab.org/ko/twin_paradox/",
+    height: "650"
+  },
   { type: "image", src: "/images/slides/mech_02/slide_75.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_76.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_77.webp" },
@@ -213,11 +221,6 @@ export const lectureData = [
     content: "상대론적 도플러 효과 (Relativistic Doppler Effect):\n• 멀어질 때 진동수/배속: $f_{rec} = f_0 \\sqrt{\\frac{1 - v/c}{1 + v/c}}$ ($v=0.6c$일 때 $0.5$배속)\n• 다가올 때 진동수/배속: $f_{rec} = f_0 \\sqrt{\\frac{1 + v/c}{1 - v/c}}$ ($v=0.6c$일 때 $2.0$배속)\n• 쌍둥이 역설에서 지구 관찰자와 우주선 관찰자는 관성계 변경(프레임 교대) 유무로 인해 영상 시청 총시간 및 비율의 명확한 비대칭성이 발생합니다."
   },
   {
-    type: "video",
-    title: "📺 추천 영상: 쌍둥이 역설의 명확한해답과 상대성 이론",
-    src: "https://www.youtube.com/watch?v=H72Yh0p9R9k"
-  },
-  {
     type: "quiz",
     title: "💡 개념 확인 퀴즈 4: 헛간과 막대의 역설",
     question: "고유 길이가 $10\\text{m}$인 헛간에 고유 길이 $10\\text{m}$인 막대가 고속($0.866c$, 길이 50% 수축)으로 통과합니다. 헛간 기준에서는 막대가 헛간 안으로 완전히 들어와 앞뒤 문을 동시에 닫을 수 있지만, 막대 기준에서는 일어날 수 없는 이유는?",
@@ -225,7 +228,7 @@ export const lectureData = [
   },
 
   // ====================================================
-  // PART 5: 질량-에너지 동등성 및 핵반응 (Slide 96 ~ 110)
+  // PART 5: 질량-에너지 동등성 및 핵반응 ($E=mc^2$) (Slide 96 ~ 110)
   // ====================================================
   {
     type: "section_header",
@@ -256,11 +259,6 @@ export const lectureData = [
     content: "• 질량-에너지 동등성: $E = m c^2$\n• 상대론적 전체 에너지: $E = \\gamma m_0 c^2 = E_k + m_0 c^2$\n• 질량 결손 및 방출 에너지: $\\Delta E = \\Delta m c^2 = (m_{\\text{반응 전}} - m_{\\text{반응 후}}) c^2$\n• 핵반응에서 반응 전후 질량수(핵자 수)는 보존되지만, 핵자당 결합 에너지 차이에 따라 질량이 감소하며($\\Delta m > 0$) 그만큼 막대한 에너지로 변환됩니다."
   },
   {
-    type: "video",
-    title: "📺 추천 영상: E=mc²의 의미와 아인슈타인의 위대한 공식",
-    src: "https://www.youtube.com/watch?v=Xo232kyTsO0"
-  },
-  {
     type: "quiz",
     title: "💡 개념 확인 퀴즈 5: 질량 결손과 방출 에너지 계산",
     question: "어떤 핵융합 반응에서 발생한 질량 결손이 $\\Delta m = 1\\text{mg} = 10^{-6}\\text{kg}$ 이었습니다. 이 반응으로 생성되는 에너지 $\\Delta E$는 몇 J(줄)입니까? (단, $c = 3 \\times 10^8\\text{m/s}$)",
@@ -270,6 +268,6 @@ export const lectureData = [
     type: "callout",
     style: "info",
     title: "🎉 [역학과 에너지] 2강 특수상대성이론 전체 학습 완료!",
-    content: "수고하셨습니다! 110장의 슬라이드와 상대성이론 탐구 시뮬레이션, 추천 동영상 및 KaTeX 수식 정리를 통해 특수상대성이론 단원을 완벽하게 이수하셨습니다."
+    content: "수고하셨습니다! 110장의 슬라이드와 자바실험실 시뮬레이션, KaTeX 수식 정리를 통해 특수상대성이론 단원을 완벽하게 이수하셨습니다."
   }
 ];
