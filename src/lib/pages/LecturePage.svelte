@@ -296,9 +296,7 @@
                         />
                     </div>
                 {:else if item.type === "callout"}
-                    <Callout type={item.style || "info"} title={item.title}>
-                        {item.content}
-                    </Callout>
+                    <Callout type={item.style || "info"} title={item.title} content={item.content} />
                 {/if}
             </div>
         {/each}
