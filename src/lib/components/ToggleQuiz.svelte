@@ -1,4 +1,5 @@
 <script>
+    import { formatMathText } from "../utils/katexHelper.js";
     export let question;
     export let answer;
     export let title = "개념 다지기 퀴즈";
@@ -9,18 +10,18 @@
     <button class="quiz-header" on:click={() => (showAnswer = !showAnswer)}>
         <div class="title-wrap">
             <span class="icon">🤔</span>
-            <h3>{title}</h3>
+            <h3>{@html formatMathText(title)}</h3>
         </div>
         <span class="chevron" class:open={showAnswer}>▼</span>
     </button>
 
     <div class="quiz-body">
-        <p class="question">Q. {question}</p>
+        <p class="question">Q. {@html formatMathText(question)}</p>
 
         {#if showAnswer}
             <div class="answer-box">
                 <span class="answer-label">A.</span>
-                <p class="answer-text">{answer}</p>
+                <p class="answer-text">{@html formatMathText(answer)}</p>
             </div>
         {/if}
     </div>

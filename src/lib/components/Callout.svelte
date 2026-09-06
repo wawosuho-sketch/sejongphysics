@@ -1,4 +1,5 @@
 <script>
+    import { formatMathText } from "../utils/katexHelper.js";
     export let content = "";
     export let type = "info"; // 'info', 'success', 'warning'
     export let title = "";
@@ -14,11 +15,11 @@
     </div>
     <div class="content-container">
         {#if title}
-            <h4>{title}</h4>
+            <h4>{@html formatMathText(title)}</h4>
         {/if}
         <p>
             {#if content}
-                {content}
+                {@html formatMathText(content)}
             {:else}
                 <slot />
             {/if}

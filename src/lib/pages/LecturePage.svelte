@@ -214,7 +214,7 @@
         };
     });
 
-    let activeZoomImage = null;
+    import { formatMathText } from "../utils/katexHelper.js";
 
     // Fast-Design Aesthetic Configuration
     const theme = {
@@ -249,26 +249,17 @@
             >
                 <CanvasOverlay {lectureId} slideIndex={index + 1} />
                 {#if item.type === "title"}
-                    <h2 class="section-title">{item.text}</h2>
+                    <h2 class="section-title">{@html formatMathText(item.text)}</h2>
                 {:else if item.type === "section_header"}
                     <div class="section-banner">
                         <span class="section-badge">{item.chapter || 'PART'}</span>
-                        <h2>{item.title}</h2>
+                        <h2>{@html formatMathText(item.title)}</h2>
                         {#if item.subtitle}
-                            <p>{item.subtitle}</p>
+                            <p>{@html formatMathText(item.subtitle)}</p>
                         {/if}
                     </div>
                 {:else if item.type === "image"}
-                    <div
-                        class="image-wrapper zoomable"
-                        on:click={() =>
-                            (activeZoomImage =
-                                import.meta.env.BASE_URL +
-                                (item.src.startsWith("/")
-                                    ? item.src.slice(1)
-                                    : item.src))}
-                    >
-                        <div class="zoom-badge">🔍 클릭하여 슬라이드 크게 보기</div>
+                    <div class="image-wrapper">
                         <img
                             src={import.meta.env.BASE_URL +
                                 (item.src.startsWith("/")
@@ -312,28 +303,6 @@
             </div>
         {/each}
     </div>
-
-    <!-- Image Zoom Modal -->
-    {#if activeZoomImage}
-        <div
-            class="image-modal"
-            on:click={() => (activeZoomImage = null)}
-            aria-hidden="true"
-        >
-            <div
-                class="modal-content"
-                on:click|stopPropagation
-                aria-hidden="true"
-            >
-                <button
-                    class="close-btn"
-                    on:click={() => (activeZoomImage = null)}
-                    aria-label="닫기">✕ 닫기</button
-                >
-                <img src={activeZoomImage} alt="Expanded Slide" />
-            </div>
-        </div>
-    {/if}
 
     <footer class="lecture-footer">
         <div class="footer-content">
@@ -528,87 +497,10 @@
         box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.4);
     }
 
-    .zoom-badge {
-        position: absolute;
-        top: 0.8rem;
-        right: 0.8rem;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(8px);
-        color: #e2e8f0;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 0.35rem 0.75rem;
-        border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        opacity: 0;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-        pointer-events: none;
-        z-index: 10;
-    }
-
-    .image-wrapper:hover .zoom-badge {
-        opacity: 1;
-        transform: translateY(2px);
-    }
-
     .image-wrapper img {
         width: 100%;
         height: auto;
         display: block;
-    }
-
-    /* Modal Zoom */
-    .image-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(5, 7, 10, 0.92);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        animation: fadeIn 0.25s ease-out forwards;
-        cursor: zoom-out;
-    }
-
-    .modal-content {
-        position: relative;
-        max-width: 95vw;
-        max-height: 90vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .modal-content img {
-        max-width: 100%;
-        max-height: 85vh;
-        object-fit: contain;
-        border-radius: 12px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .close-btn {
-        position: absolute;
-        top: -3.5rem;
-        right: 0;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #fff;
-        padding: 0.5rem 1.2rem;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .close-btn:hover {
-        background: #ef4444;
-        border-color: #ef4444;
     }
 
     .interactive-wrapper {
