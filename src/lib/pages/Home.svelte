@@ -4,8 +4,9 @@
     import { textbooks } from "../data/textbooks.js";
 
     export let navigate;
+    export let initialBookId = "physics";
 
-    let selectedBookId = "physics";
+    let selectedBookId = initialBookId || "physics";
 
     // 해설지 공개 기간 (3주 뒤인 2026-05-01 00:00:00 까지)
     const isSolutionVisible = new Date() < new Date("2026-05-01T00:00:00+09:00");
@@ -14,16 +15,24 @@
     $: lectures = activeBook.lectures;
     $: problems = activeBook.problems;
 
+    $: if (initialBookId && textbooks.some(b => b.id === initialBookId)) {
+        selectedBookId = initialBookId;
+    }
+
     onMount(() => {
         const params = new URLSearchParams(window.location.search);
         const bookParam = params.get("book");
+        const savedBook = localStorage.getItem("selectedBookId");
         if (bookParam && textbooks.some(b => b.id === bookParam)) {
             selectedBookId = bookParam;
+        } else if (savedBook && textbooks.some(b => b.id === savedBook)) {
+            selectedBookId = savedBook;
         }
     });
 
     function selectBook(id) {
         selectedBookId = id;
+        localStorage.setItem("selectedBookId", id);
         const url = new URL(window.location.href);
         url.searchParams.set("book", id);
         window.history.replaceState({}, "", url);
@@ -114,7 +123,7 @@
                     class="lecture-card card-animate"
                     style="--accent-color: {lecture.accent}; animation-delay: {i *
                         100}ms;"
-                    on:click={() => navigate(`lecture_${lecture.fullId || lecture.id}`)}
+                    on:click={() => navigate(`lecture_${lecture.fullId || lecture.id}`, 1, activeBook.id)}
                 >
                     {#if lecture.image}
                         <img

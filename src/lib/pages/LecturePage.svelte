@@ -19,6 +19,7 @@
     let lectureData = [];
     let title = "로딩 중...";
     let subtitle = "데이터를 불러오는 중입니다.";
+    let currentBookId = "physics";
 
     let observer;
     let lastHandledSlide = 0;
@@ -30,6 +31,7 @@
         const meta = getLectureMeta(lectureId);
         title = meta.title;
         subtitle = meta.subtitle;
+        currentBookId = meta.bookId || "physics";
 
         let dataFileName = lectureId;
         if (/^\d+$/.test(lectureId)) {
@@ -227,7 +229,7 @@
 
 <main style="background-color: {theme.background}; color: {theme.text}">
     <header>
-        <button class="back-btn" on:click={() => navigate("home")}>
+        <button class="back-btn" on:click={() => navigate("home", 1, currentBookId)}>
             ← 전체 목록으로 돌아가기
         </button>
         <h1>{title}</h1>
@@ -306,7 +308,7 @@
         <div class="footer-content">
             <h3>🎉 {lectureId}강 학습을 완료하셨습니다!</h3>
             <p>다음 강의로 돌아가 물리학의 세계를 계속 탐험해보세요.</p>
-            <button class="primary-btn" on:click={() => navigate("home")}>
+            <button class="primary-btn" on:click={() => navigate("home", 1, currentBookId)}>
                 목록으로 가기
             </button>
         </div>
