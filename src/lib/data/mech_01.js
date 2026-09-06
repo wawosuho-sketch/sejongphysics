@@ -6,8 +6,8 @@ export const lectureData = [
   {
     type: "callout",
     style: "info",
-    title: "📖 학습 방법 안내",
-    content: "모든 슬라이드 이미지는 클릭하시면 **큰 화면(전체 화면 모달)**으로 선명하게 수식과 그래프를 확대해 보실 수 있습니다. 슬라이드 흐름에 맞춰 배치된 **PhET 시뮬레이션**과 **개념 퀴즈**를 활용해 직접 탐구해보세요!"
+    title: "📖 슬라이드 시각 그래픽 및 학습 안내",
+    content: "본 강의는 슬라이드 원본 분석을 토대로 **맞춤형 고해상도 물리 개념 시각 그래픽 카드**와 **PhET 시뮬레이션**, **수식 정리**, **개념 퀴즈**를 결합하여 대폭 개편된 강의 자료입니다. 각 슬라이드는 클릭하여 크게 보실 수 있습니다."
   },
 
   // ====================================================
@@ -24,6 +24,9 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_01/slide_03.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_04.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_05.webp" },
+
+  // Enhanced Custom Physics Graphic 1
+  { type: "image", src: "/images/slides/mech_01/custom_vector_decomp.webp" },
 
   {
     type: "callout",
@@ -49,6 +52,9 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_01/slide_08.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_09.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_10.webp" },
+
+  // Enhanced Custom Physics Graphic 2
+  { type: "image", src: "/images/slides/mech_01/custom_incline_forces.webp" },
 
   {
     type: "callout",
@@ -97,6 +103,9 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_01/slide_25.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_26.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_27.webp" },
+
+  // Enhanced Custom Physics Graphic 3
+  { type: "image", src: "/images/slides/mech_01/custom_projectile_motion.webp" },
 
   {
     type: "callout",
@@ -239,6 +248,9 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_01/slide_69.webp" },
   { type: "image", src: "/images/slides/mech_01/slide_70.webp" },
 
+  // Enhanced Custom Physics Graphic 4
+  { type: "image", src: "/images/slides/mech_01/custom_pendulum_oscillation.webp" },
+
   {
     type: "callout",
     style: "warning",
@@ -261,6 +273,6 @@ export const lectureData = [
     type: "callout",
     style: "info",
     title: "🎉 [역학과 에너지] 1강 전체 학습 완료!",
-    content: "축하합니다! 70장의 강의 슬라이드와 5개의 PhET 시뮬레이션을 통해 역학 전체 단원 학습을 마쳤습니다. 필요시 슬라이드를 클릭하여 확대해 보시거나 D키(판서) 기능으로 주요 수식을 직접 필기해 보세요."
+    content: "축하합니다! 70장의 강의 슬라이드와 맞춤형 고해상도 물리 개념 그래픽, 5개의 PhET 시뮬레이션을 통해 역학 전체 단원 학습을 마쳤습니다."
   }
 ];
