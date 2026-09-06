@@ -186,10 +186,10 @@ export const textbooks = [
       {
         id: "mech_03",
         fullId: "mech_03",
-        title: "3강. 운동량과 충격량",
-        subtitle: "충돌 현상과 운동량 보존 법칙",
-        tag: "I. 힘과 운동",
-        image: "/images/thumbnails/mech_03.webp",
+        title: "3강. 일반상대성이론",
+        subtitle: "등가 원리, 시공간의 휘어짐, 중력 렌즈 및 블랙홀과 사건의 지평선",
+        tag: "I. 시공간과 상대성",
+        image: "/images/slides/mech_03/slide_01.webp",
         accent: "#eab308"
       },
       {
