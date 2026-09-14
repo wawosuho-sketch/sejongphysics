@@ -146,22 +146,9 @@ export const textbooks = [
     homeworkUrl: "https://clipo.ai/students/homeworks/4OA4S9_cTE-y96CD1o3ySQ",
     problems: [
       {
-        id: "mech_motion",
-        title: "힘과 평형",
-        pdf: "resources/mechanics/힘과평형.pdf",
-        solution: "resources/mechanics/힘과평형 해설.pdf"
-      },
-      {
-        id: "mech_law",
-        title: "운동의 법칙",
-        pdf: "resources/mechanics/운동의법칙.pdf",
-        solution: "resources/mechanics/운동의법칙 해설.pdf"
-      },
-      {
-        id: "mech_energy",
-        title: "역학적 에너지 보존",
-        pdf: "resources/mechanics/역학적에너지보존.pdf",
-        solution: "resources/mechanics/역학적에너지보존 해설.pdf"
+        id: "mech_relativity_problems",
+        title: "역학·특수상대론 문제모음",
+        pdf: "resources/역학,특수상대론 문제모음.pdf"
       }
     ],
     lectures: [

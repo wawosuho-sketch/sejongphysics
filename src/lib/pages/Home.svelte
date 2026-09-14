@@ -72,11 +72,12 @@
         </div>
     </section>
 
-    <!-- Action Center (Hidden per user request: 교과서 변경에 따른 숨김 처리) -->
-    {#if false}
+    <!-- Action Center -->
+    {#if activeBook.homeworkUrl || (problems && problems.length > 0)}
     <section class="action-center action-animate">
-        <div class="action-grid">
+        <div class="action-grid" class:single-card={!activeBook.homeworkUrl || !problems || problems.length === 0}>
             <!-- Homework Submission -->
+            {#if activeBook.homeworkUrl}
             <a href={activeBook.homeworkUrl} target="_blank" rel="noopener noreferrer" class="action-card primary-action">
                 <div class="action-icon">📝</div>
                 <div class="action-content">
@@ -87,8 +88,10 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </div>
             </a>
+            {/if}
 
             <!-- Physics Problems -->
+            {#if problems && problems.length > 0}
             <div class="action-card secondary-action">
                 <div class="action-header">
                     <div class="action-icon">📚</div>
@@ -100,14 +103,15 @@
                 <div class="download-buttons">
                     {#each problems as prob}
                         <div class="problem-group">
-                            <a href="{import.meta.env.BASE_URL}{prob.pdf}" target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
+                            <a href={encodeURI(import.meta.env.BASE_URL + (prob.pdf.startsWith('/') ? prob.pdf.slice(1) : prob.pdf))} target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
                             {#if isSolutionVisible && prob.solution}
-                                <a href="{import.meta.env.BASE_URL}{prob.solution}" target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                                <a href={encodeURI(import.meta.env.BASE_URL + (prob.solution.startsWith('/') ? prob.solution.slice(1) : prob.solution))} target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
                             {/if}
                         </div>
                     {/each}
                 </div>
             </div>
+            {/if}
         </div>
     </section>
     {/if}
@@ -430,6 +434,10 @@
         display: grid;
         grid-template-columns: 1fr 1.5fr;
         gap: 1rem;
+    }
+
+    .action-grid.single-card {
+        grid-template-columns: 1fr;
     }
 
     .action-card {
