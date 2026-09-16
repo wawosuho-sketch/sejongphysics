@@ -240,6 +240,43 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_02/slide_97.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_98.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_99.webp" },
+  
+  // --- 심화 탐구: 쌍둥이 역설의 완벽한 해소 (4개의 슬라이드) ---
+  {
+    type: "section_header",
+    chapter: "심화 탐구",
+    title: "쌍둥이 역설 완벽 해소: 가속도 없는 3인 관찰자 모델",
+    subtitle: "동시성의 상대성과 길이 수축을 이용한 완벽한 10년의 증명"
+  },
+  { type: "image", src: "/images/slides/mech_02/simultaneity_verification.png" },
+  {
+    type: "callout",
+    style: "info",
+    title: "Slide 1. 동시성의 두 가지 얼굴: '사전 동기화'와 '현장 관측'",
+    content: "📡 **사전 약속(시계 동기화)**: 지구와 $6\\text{광년}$ 떨어진 우주 공간의 출발 시계를 어떻게 똑같이 $t=0$으로 맞출까요?\n$\\rightarrow$ 지구에서 6년 전에 빛을 쏘아, 빛이 도착하는 순간 저 멀리 있는 시계가 $0$년부터 시작하도록 미리 세팅합니다!\n\n👁️ **물리적 검증(관측)**: 정말 두 우주선이 동시에 출발했을까요?\n$\\rightarrow$ 정중앙($3\\text{광년}$)에 있는 행성 관찰자가 양쪽에서 출발하며 쏜 빛을 **'동시에'** 수신함으로써 \"두 우주선이 정말로 완벽히 동시에 출발했음\"을 현장에서 입증합니다."
+  },
+  { type: "image", src: "/images/slides/mech_02/earth_perspective_crossing.png" },
+  {
+    type: "callout",
+    style: "info",
+    title: "Slide 2. 지구 관점의 시나리오 (직관적이고 깔끔한 10년)",
+    content: "A와 B는 각각 지구($0\\text{광년}$)와 B 출발점($6\\text{광년}$)에서 $t=0$에 **동시에 출발**합니다.\n두 우주선 모두 $0.6c$로 비행하여, $t=5.0\\text{년}$일 때 정중앙 행성($3\\text{광년}$)에서 정확히 스쳐 지나갑니다(교차).\n교차 후 B가 지구까지 $5.0\\text{년}$을 더 날아와서, 최종적으로 **총 $10.0\\text{년}$** 만에 지구에 도착합니다!"
+  },
+  { type: "image", src: "/images/slides/mech_02/spaceship_b_perspective_start.png" },
+  {
+    type: "callout",
+    style: "info",
+    title: "Slide 3. 다가오는 우주선 B 관점 (길이 수축과 시간 팽창의 마법)",
+    content: "📏 **길이 수축**: B의 눈에 행성에서 지구까지의 거리는 $3\\text{광년} \\rightarrow \\mathbf{2.4\\text{광년}}$으로 수축됩니다.\n⏱️ **시간 팽창**: B가 각 구간을 $4.0\\text{년}$씩 비행하는 동안, 움직이는 지구 시계는 $4.0\\text{년} \\times 0.8 = \\mathbf{3.2\\text{년}}$씩만 느리게 증가합니다.\n🚀 **동시성의 시차 (핵심!)**: B가 지구를 향해 마주 달리고 있기 때문에, B가 출발하는 순간 지구의 시계는 이미 $\\mathbf{3.6\\text{년}}$부터 시작합니다!\n$\\left(\\text{시차} = \\frac{v \\cdot L}{c^2} = \\frac{0.6 \\times 6\\text{광년}}{1} = \\mathbf{3.6\\text{년}}\\right)$"
+  },
+  { type: "image", src: "/images/slides/mech_02/spaceship_b_puzzle_completion.png" },
+  {
+    type: "callout",
+    style: "info",
+    title: "Slide 4. 우주선 B 관점에서 10년이 완성되는 마법 같은 과정",
+    content: "**① 출발 시 ($t''=0\\text{년}$)**: 진행 방향 앞에 있는 지구 시계는 동시성 시차에 의해 이미 **$3.6\\text{년}$**을 가리킵니다.\n**② 행성 교차 시 ($t''=4.0\\text{년}$)**: 첫 구간 4년 비행 동안 지구 시계가 $3.2\\text{년}$ 늘어납니다. ($\\rightarrow 3.6 + 3.2 = \\mathbf{6.8\\text{년}}$)\n**③ 지구 도착 시 ($t''=8.0\\text{년}$)**: 남은 구간 4년 비행 동안 지구 시계가 $3.2\\text{년}$ 더 늘어납니다. ($\\rightarrow 6.8 + 3.2 = \\mathbf{10.0\\text{년}}$)\n\n**결론**: 복잡한 가속도나 도플러 배속 영상 계산에 의존하지 않더라도, 오직 '길이 수축', '시간 팽창', '동시성의 시차'만으로 쌍둥이 역설이 완벽하게 해결됩니다."
+  },
+  
   { type: "image", src: "/images/slides/mech_02/slide_100.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_101.webp" },
   { type: "image", src: "/images/slides/mech_02/slide_102.webp" },
