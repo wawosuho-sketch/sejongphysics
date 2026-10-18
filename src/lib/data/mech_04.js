@@ -7,7 +7,7 @@ export const lectureData = [
     type: "callout",
     style: "info",
     title: "학습 안내",
-    content: "149장의 원본 슬라이드 사이에, 방금 본 내용을 손으로 움직여 보는 시뮬레이션과 짧은 영상을 넣었습니다."
+    content: "149장의 원본 슬라이드는 그대로 두었습니다. 부호, 카르노 효율, 엔트로피 계산이 이어지는 곳에 보충 슬라이드를 넣었고, 중간중간 시뮬레이션과 짧은 영상도 있습니다."
   },
   {
     type: "section_header",
@@ -34,6 +34,12 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_11.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_12.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_13.webp" },
+  {
+    type: "simulation",
+    title: "뜨거운 쪽 입자의 떨림이 차가운 쪽으로 퍼지는 전도 보기",
+    src: "https://javalab.org/ko/conduction_2/",
+    height: "680"
+  },
   { type: "image", src: "/images/slides/mech_04/slide_14.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_15.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_16.webp" },
@@ -69,6 +75,12 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_34.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_35.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_36.webp" },
+  {
+    type: "simulation",
+    title: "팽창이 다른 두 금속을 가열하면 휘어지는 바이메탈 보기",
+    src: "https://javalab.org/ko/bimetal/",
+    height: "680"
+  },
   { type: "image", src: "/images/slides/mech_04/slide_37.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_38.webp" },
   {
@@ -151,6 +163,7 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_80.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_81.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_82.webp" },
+  { type: "image", src: "/images/slides/mech_04/supplement_sign.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_83.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_84.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_85.webp" },
@@ -224,6 +237,7 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_118.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_119.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_120.webp" },
+  { type: "image", src: "/images/slides/mech_04/supplement_carnot.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_121.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_122.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_123.webp" },
@@ -249,6 +263,13 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_143.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_144.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_145.webp" },
+  { type: "image", src: "/images/slides/mech_04/supplement_entropy.webp" },
+  {
+    type: "simulation",
+    title: "진자가 멈출 때 역학적 에너지가 열로 흩어지는 과정 보기",
+    src: "https://javalab.org/ko/entropy/",
+    height: "680"
+  },
   { type: "image", src: "/images/slides/mech_04/slide_146.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_147.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_148.webp" },
