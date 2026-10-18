@@ -1,9 +1,14 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { whiteboardStore, saveDrawing } from "../stores/whiteboardStore";
+    import {
+        whiteboardStore,
+        saveDrawing,
+        readDrawing,
+        migrateDrawing,
+    } from "../stores/whiteboardStore";
 
-    export let lectureId;
-    export let slideIndex;
+    export let drawingKey;
+    export let legacyKey = null;
 
     let canvas;
     let ctx;
@@ -35,8 +40,11 @@
 
     $: storeState = $whiteboardStore;
 
-    // Check if there's saved drawing data
-    $: savedDataUrl = storeState.slideDrawings[`${lectureId}_${slideIndex}`];
+    $: savedDataUrl = readDrawing(
+        storeState.slideDrawings,
+        drawingKey,
+        legacyKey,
+    );
 
     // Reactive statement: Whenever savedDataUrl changes, load it into canvas
     // Wait for ctx and canvas to be ready
@@ -67,7 +75,7 @@
             resizeObserver.observe(container);
         }
 
-        // We don't load drawing here anymore, handleResize will trigger the first load once size is known.
+        migrateDrawing(drawingKey, legacyKey);
     });
 
     onDestroy(() => {
@@ -198,10 +206,24 @@
         isDrawing = false;
         ctx.closePath();
 
-        // Save after user stops drawing (PNG to preserve transparency)
-        const dataUrl = canvas.toDataURL("image/png");
-        lastLoadedDataUrl = dataUrl; // 방금 저장한 이미지를 다시 불러오는 것을 방지
-        saveDrawing(lectureId, slideIndex, dataUrl);
+        const dataUrl = exportDrawing(canvas);
+        lastLoadedDataUrl = dataUrl;
+        saveDrawing(drawingKey, legacyKey, dataUrl);
+    }
+
+    function exportDrawing(source) {
+        if (!source.width || !source.height) return source.toDataURL("image/png");
+        const maxWidth = 1400;
+        const scale = Math.min(1, maxWidth / source.width);
+        const width = Math.max(1, Math.round(source.width * scale));
+        const height = Math.max(1, Math.round(source.height * scale));
+        const copy = document.createElement("canvas");
+        copy.width = width;
+        copy.height = height;
+        copy.getContext("2d").drawImage(source, 0, 0, width, height);
+        const webp = copy.toDataURL("image/webp", 0.8);
+        if (webp.startsWith("data:image/webp")) return webp;
+        return copy.toDataURL("image/png");
     }
 </script>
 

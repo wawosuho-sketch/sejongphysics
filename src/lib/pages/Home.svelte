@@ -1,15 +1,17 @@
 <script>
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
-    import { textbooks } from "../data/textbooks.js";
+    import { isSolutionVisible, textbooks } from "../data/textbooks.js";
 
     export let navigate;
     export let initialBookId = "physics";
 
     let selectedBookId = initialBookId || "physics";
+    let hiddenThumbs = {};
 
-    // 해설지 공개 기간 (3주 뒤인 2026-05-01 00:00:00 까지)
-    const isSolutionVisible = new Date() < new Date("2026-05-01T00:00:00+09:00");
+    function hideThumb(id) {
+        hiddenThumbs = { ...hiddenThumbs, [id]: true };
+    }
 
     $: activeBook = textbooks.find(b => b.id === selectedBookId) || textbooks[0];
     $: lectures = activeBook.lectures;
@@ -104,7 +106,7 @@
                     {#each problems as prob}
                         <div class="problem-group">
                             <a href={encodeURI(import.meta.env.BASE_URL + (prob.pdf.startsWith('/') ? prob.pdf.slice(1) : prob.pdf))} target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
-                            {#if isSolutionVisible && prob.solution}
+                            {#if isSolutionVisible(prob)}
                                 <a href={encodeURI(import.meta.env.BASE_URL + (prob.solution.startsWith('/') ? prob.solution.slice(1) : prob.solution))} target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
                             {/if}
                         </div>
@@ -131,7 +133,7 @@
                         100}ms;"
                     on:click={() => navigate(`lecture_${lecture.fullId || lecture.id}`, 1, activeBook.id)}
                 >
-                    {#if lecture.image}
+                    {#if lecture.image && !hiddenThumbs[lecture.fullId || lecture.id]}
                         <img
                             src={import.meta.env.BASE_URL +
                                 (lecture.image.startsWith("/")
@@ -139,6 +141,7 @@
                                     : lecture.image)}
                             alt={lecture.title}
                             class="card-bg-image"
+                            on:error={() => hideThumb(lecture.fullId || lecture.id)}
                         />
                     {/if}
                     <div class="card-overlay"></div>

@@ -10,12 +10,11 @@ injectAnalytics();
 
 import { registerSW } from 'virtual:pwa-register'
 
-const updateSW = registerSW({
-  onNeedRefresh() {
-    // Optionally show a prompt to user to update
-  },
+// onNeedRefresh를 비워 두면 autoUpdate가 멈춥니다. 새 배포는 다음 방문 때 스스로 적용됩니다.
+registerSW({
+  immediate: true,
   onOfflineReady() {
-    console.log('App is ready to work offline')
+    console.log('App shell is ready to work offline')
   },
 })
 

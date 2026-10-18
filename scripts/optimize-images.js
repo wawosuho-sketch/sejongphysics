@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TARGET_DIR = path.join(__dirname, '../public/images');
+const deleteOriginals = process.argv.includes('--delete');
 
 async function convertDir(dir) {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -24,9 +25,12 @@ async function convertDir(dir) {
                     .webp({ quality: 80 })
                     .toFile(webpPath);
                 
-                // Only delete if conversion succeeded
-                fs.unlinkSync(fullPath);
-                console.log(`  Success! Deleted original PNG.`);
+                if (deleteOriginals) {
+                    fs.unlinkSync(fullPath);
+                    console.log(`  Success. Deleted original PNG.`);
+                } else {
+                    console.log(`  Success. Kept original PNG (pass --delete to remove it).`);
+                }
             } catch (err) {
                 console.error(`  Error converting ${fullPath}:`, err);
             }

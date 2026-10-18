@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx vite",
-    "build": "npx vite build",
+    "check": "node scripts/check-assets.js",
+    "build": "node scripts/check-assets.js && npx vite build",
     "preview": "npx vite preview"
   },
   "devDependencies": {

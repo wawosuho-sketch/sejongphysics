@@ -11,6 +11,7 @@
     } from "../stores/whiteboardStore";
 
     import { getLectureMeta } from "../data/textbooks.js";
+    import { drawingKeys, sourceSlideFromItem } from "../utils/slideIdentity.js";
 
     export let navigate;
     export let lectureId = "01"; // Default or passed from App.svelte
@@ -26,12 +27,39 @@
 
     let currentScrubberSlide = 1;
     let isScrubbing = false;
+    let brokenSlides = {};
+
+    function sourceSlideAt(streamIndex) {
+        const direct = sourceSlideFromItem(lectureData[streamIndex - 1]);
+        if (direct) return direct;
+        for (let i = streamIndex - 2; i >= 0; i--) {
+            const earlier = sourceSlideFromItem(lectureData[i]);
+            if (earlier) return earlier;
+        }
+        return null;
+    }
+
+    $: currentSourceSlide = sourceSlideAt(currentScrubberSlide);
+
+    function markSlideBroken(index) {
+        brokenSlides = { ...brokenSlides, [index]: true };
+    }
+
+    function imageOrdinal(index) {
+        let count = 0;
+        for (let i = 0; i < index; i++) {
+            if (lectureData[i]?.type === "image") count += 1;
+        }
+        return count;
+    }
 
     $: {
         const meta = getLectureMeta(lectureId);
         title = meta.title;
         subtitle = meta.subtitle;
         currentBookId = meta.bookId || "physics";
+
+        brokenSlides = {};
 
         let dataFileName = lectureId;
         if (/^\d+$/.test(lectureId)) {
@@ -80,8 +108,17 @@
                         entry.target.getAttribute("data-slide-index");
                     if (slideIndex) {
                         const idx = parseInt(slideIndex, 10);
+                        const item = lectureData[idx - 1];
+                        const keys = item
+                            ? drawingKeys(lectureId, item, idx)
+                            : null;
                         updateUrlSilently(idx);
-                        updateCurrentSlide(lectureId, idx);
+                        updateCurrentSlide(
+                            lectureId,
+                            idx,
+                            keys?.key ?? null,
+                            keys?.legacy ?? null,
+                        );
                         if (!isScrubbing) {
                             currentScrubberSlide = idx;
                         }
@@ -249,7 +286,10 @@
                 data-slide-index={index + 1}
                 style="position: relative;"
             >
-                <CanvasOverlay {lectureId} slideIndex={index + 1} />
+                <CanvasOverlay
+                    drawingKey={drawingKeys(lectureId, item, index + 1).key}
+                    legacyKey={drawingKeys(lectureId, item, index + 1).legacy}
+                />
                 {#if item.type === "title"}
                     <h2 class="section-title">{@html formatMathText(item.text)}</h2>
                 {:else if item.type === "section_header"}
@@ -262,13 +302,30 @@
                     </div>
                 {:else if item.type === "image"}
                     <div class="image-wrapper">
-                        <img
-                            src={import.meta.env.BASE_URL +
-                                (item.src.startsWith("/")
-                                    ? item.src.slice(1)
-                                    : item.src)}
-                            alt={`Slide ${index + 1}`}
-                        />
+                        {#if brokenSlides[index]}
+                            <div class="image-missing">
+                                이 슬라이드 이미지를 불러오지 못했습니다.
+                                {#if sourceSlideFromItem(item)}
+                                    원본 {sourceSlideFromItem(item)}번을 확인해 주세요.
+                                {/if}
+                            </div>
+                        {:else}
+                            <img
+                                src={import.meta.env.BASE_URL +
+                                    (item.src.startsWith("/")
+                                        ? item.src.slice(1)
+                                        : item.src)}
+                                alt={sourceSlideFromItem(item)
+                                    ? `원본 ${sourceSlideFromItem(item)}번 슬라이드`
+                                    : `슬라이드 ${index + 1}`}
+                                loading={imageOrdinal(index) < 2 ? "eager" : "lazy"}
+                                fetchpriority={imageOrdinal(index) === 0
+                                    ? "high"
+                                    : "auto"}
+                                decoding="async"
+                                on:error={() => markSlideBroken(index)}
+                            />
+                        {/if}
                     </div>
                 {:else if item.type === "video"}
                     <div class="interactive-wrapper">
@@ -318,7 +375,12 @@
     {#if lectureData.length > 0}
         <div class="scrubber-container">
             <div class="scrubber-info">
-                <span class="scrub-label">슬라이드 탐색</span>
+                <span class="scrub-label">
+                    슬라이드 탐색
+                    {#if currentSourceSlide}
+                        <span class="scrub-source">원본 {currentSourceSlide}</span>
+                    {/if}
+                </span>
                 <span class="scrub-count"
                     >{currentScrubberSlide}
                     <span class="scrub-total">/ {lectureData.length}</span
@@ -487,20 +549,23 @@
         transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, box-shadow 0.3s;
     }
 
-    .image-wrapper.zoomable {
-        cursor: zoom-in;
-    }
-
-    .image-wrapper.zoomable:hover {
-        transform: translateY(-4px) scale(1.01);
-        border-color: rgba(99, 102, 241, 0.6);
-        box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.4);
-    }
-
     .image-wrapper img {
         width: 100%;
         height: auto;
         display: block;
+    }
+
+    .image-missing {
+        padding: 3rem 1.5rem;
+        text-align: center;
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    .scrub-source {
+        margin-left: 0.6rem;
+        color: #c7d2fe;
+        font-weight: 700;
     }
 
     .interactive-wrapper {

@@ -11,19 +11,22 @@ export const textbooks = [
         id: "accel",
         title: "등가속도 운동",
         pdf: "resources/등가속도.pdf",
-        solution: "resources/등가속도 해설.pdf"
+        solution: "resources/등가속도 해설.pdf",
+        solutionUntil: "2026-05-01T00:00:00+09:00"
       },
       {
         id: "force",
         title: "힘과 운동",
         pdf: "resources/힘과운동.pdf",
-        solution: "resources/힘과운동 해설.pdf"
+        solution: "resources/힘과운동 해설.pdf",
+        solutionUntil: "2026-05-01T00:00:00+09:00"
       },
       {
         id: "energy",
         title: "에너지 보존",
         pdf: "resources/역학적에너지보존.pdf",
-        solution: "resources/일-에너지보존 해설.pdf"
+        solution: "resources/일-에너지보존 해설.pdf",
+        solutionUntil: "2026-05-01T00:00:00+09:00"
       }
     ],
     lectures: [
@@ -183,7 +186,7 @@ export const textbooks = [
         id: "mech_04",
         fullId: "mech_04",
         title: "4강. 열역학 법칙과 에너지",
-        subtitle: "열역학 제1법칙과 열기관의 효율",
+        subtitle: "열의 이동, 비열과 상태 변화, 이상기체, 열기관과 엔트로피",
         tag: "II. 열과 에너지",
         image: "/images/thumbnails/mech_04.webp",
         accent: "#10b981"
@@ -225,4 +228,11 @@ export function getLectureMeta(lectureId) {
     bookId: "physics",
     bookName: "물리학"
   };
+}
+
+/** 해설 PDF는 문제마다 solutionUntil 이전까지만 노출합니다. */
+export function isSolutionVisible(problem, now = new Date()) {
+  if (!problem?.solution) return false;
+  if (!problem.solutionUntil) return true;
+  return now < new Date(problem.solutionUntil);
 }

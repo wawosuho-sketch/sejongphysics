@@ -1,7 +1,24 @@
 <script>
+  import { onMount } from "svelte";
+
   export let src;
   export let title = "물리 시뮬레이션";
   export let height = "600";
+
+  let online = true;
+
+  onMount(() => {
+    online = navigator.onLine;
+    const sync = () => {
+      online = navigator.onLine;
+    };
+    window.addEventListener("online", sync);
+    window.addEventListener("offline", sync);
+    return () => {
+      window.removeEventListener("online", sync);
+      window.removeEventListener("offline", sync);
+    };
+  });
 
   // Check if the site is known to block iframes (like LabXchange)
   $: isNonEmbeddable = src && src.includes("labxchange.org");
@@ -28,8 +45,24 @@
         </a>
       </div>
     </div>
+  {:else if !online}
+    <div class="fallback-container">
+      <div class="fallback-content">
+        <p>오프라인 상태입니다. 시뮬레이션은 학교 네트워크에 연결되어야 열립니다.</p>
+        <a href={src} target="_blank" rel="noopener noreferrer" class="link-btn">
+          연결되면 새 창에서 열기
+        </a>
+      </div>
+    </div>
   {:else}
-    <iframe {src} width="100%" {height} scrolling="auto" allowfullscreen {title}
+    <iframe
+      {src}
+      width="100%"
+      {height}
+      scrolling="auto"
+      allowfullscreen
+      loading="lazy"
+      {title}
     ></iframe>
   {/if}
 </div>

@@ -34,6 +34,9 @@ export function formatMathText(text) {
     }
   });
 
+  // 강의 데이터에 적힌 **강조** 는 학생 화면에 별표로 남지 않게 합니다.
+  result = result.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
   // Convert newlines to <br/>
-  return result.replace(/\n/g, '<br/>');
+  return result.replace(/\n/g, "<br/>");
 }

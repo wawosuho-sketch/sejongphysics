@@ -1,6 +1,23 @@
 <script>
+    import { onMount } from "svelte";
+
     export let src;
     export let title = "관련 영상 보기";
+
+    let online = true;
+
+    onMount(() => {
+        online = navigator.onLine;
+        const sync = () => {
+            online = navigator.onLine;
+        };
+        window.addEventListener("online", sync);
+        window.addEventListener("offline", sync);
+        return () => {
+            window.removeEventListener("online", sync);
+            window.removeEventListener("offline", sync);
+        };
+    });
 
     // Automatically convert YouTube watch or youtu.be URLs to embed URLs
     $: embedSrc = (() => {
@@ -27,15 +44,25 @@
         <span class="icon">📺</span>
         <h3>{title}</h3>
     </div>
-    <div class="video-wrapper">
-        <iframe
-            src={embedSrc}
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            {title}
-        ></iframe>
-    </div>
+    {#if !online}
+        <div class="offline-note">
+            <p>오프라인 상태입니다. 영상은 네트워크에 연결되면 재생할 수 있습니다.</p>
+            {#if embedSrc}
+                <a href={embedSrc} target="_blank" rel="noopener noreferrer">연결되면 새 창에서 열기</a>
+            {/if}
+        </div>
+    {:else}
+        <div class="video-wrapper">
+            <iframe
+                src={embedSrc}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                {title}
+            ></iframe>
+        </div>
+    {/if}
 </div>
 
 <style>
@@ -69,6 +96,20 @@
         height: 0;
         overflow: hidden;
     }
+    .offline-note {
+        padding: 2rem 1.5rem;
+        text-align: center;
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    .offline-note a {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #4f46e5;
+        font-weight: 600;
+    }
+
     .video-wrapper iframe {
         position: absolute;
         top: 0;

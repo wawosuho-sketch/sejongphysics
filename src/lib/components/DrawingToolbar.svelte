@@ -23,8 +23,8 @@
     }
 
     function clearCurrentSlide() {
-        if (state.currentLectureId && state.currentSlideIndex) {
-            clearDrawing(state.currentLectureId, state.currentSlideIndex);
+        if (state.currentDrawingKey) {
+            clearDrawing(state.currentDrawingKey, state.currentLegacyKey);
         }
     }
 
@@ -100,12 +100,19 @@
         toastTimer = setTimeout(() => (toastMsg = ""), 2500);
     }
 
-    $: hasCurrentSlideDrawing =
-        state.currentLectureId &&
-        state.currentSlideIndex &&
-        !!state.slideDrawings[
-            `${state.currentLectureId}_${state.currentSlideIndex}`
-        ];
+    $: hasCurrentSlideDrawing = !!(
+        state.currentDrawingKey &&
+        (state.slideDrawings[state.currentDrawingKey] ||
+            (state.currentLegacyKey &&
+                state.slideDrawings[state.currentLegacyKey]))
+    );
+
+    $: if (state.storageWarning) {
+        showToast(state.storageWarning);
+        whiteboardStore.update((s) =>
+            s.storageWarning ? { ...s, storageWarning: "" } : s,
+        );
+    }
 </script>
 
 <!-- Hidden File Input -->

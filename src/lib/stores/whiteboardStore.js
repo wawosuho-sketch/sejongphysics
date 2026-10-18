@@ -1,44 +1,79 @@
 import { writable } from 'svelte/store';
 
-// Default values
+const STORAGE_KEY = 'textbookLayoutDrawings';
+const STORAGE_FULL_MESSAGE =
+    '이 태블릿의 필기 저장 공간이 가득 찼습니다. 💾 버튼으로 필기를 파일로 내보낸 뒤 공간을 비워 주세요.';
+
 const defaultState = {
     isDrawingMode: false,
-    activeColor: '#4f46e5', // Default pen color (Accent Blue)
-    activeWidth: 3,         // Default pen width
-    currentTool: 'pen',     // 'pen', 'highlighter', 'eraser'
-    slideDrawings: {},      // Format: { "lectureId_slideIndex": "data:image/jpeg;base64,..." }
-    currentLectureId: null, // Currently visible lecture
-    currentSlideIndex: null // Currently visible slide
+    activeColor: '#4f46e5',
+    activeWidth: 3,
+    currentTool: 'pen',
+    slideDrawings: {},
+    currentLectureId: null,
+    currentSlideIndex: null,
+    currentDrawingKey: null,
+    currentLegacyKey: null,
+    storageWarning: ''
 };
 
-// Try to load saved drawings from localStorage
-const storedData = typeof window !== 'undefined' ? localStorage.getItem('textbookLayoutDrawings') : null;
-const initialState = storedData ? { ...defaultState, slideDrawings: JSON.parse(storedData) } : defaultState;
+const storedData = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
+const initialState = storedData
+    ? { ...defaultState, slideDrawings: JSON.parse(storedData) }
+    : defaultState;
 
 export const whiteboardStore = writable(initialState);
 
-// Update which slide is currently in view (called by LecturePage)
-export function updateCurrentSlide(lectureId, slideIndex) {
-    whiteboardStore.update(s => ({ ...s, currentLectureId: lectureId, currentSlideIndex: slideIndex }));
+function persist(drawings) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(drawings));
+        return '';
+    } catch {
+        return STORAGE_FULL_MESSAGE;
+    }
 }
 
-// Helper function to save drawings to localStorage (JPEG compressed)
-export function saveDrawing(lectureId, slideIndex, dataUrl) {
+export function readDrawing(drawings, key, legacyKey) {
+    if (!drawings) return undefined;
+    if (key && drawings[key]) return drawings[key];
+    if (legacyKey && drawings[legacyKey]) return drawings[legacyKey];
+    return undefined;
+}
+
+export function updateCurrentSlide(lectureId, slideIndex, drawingKey = null, legacyKey = null) {
+    whiteboardStore.update(s => ({
+        ...s,
+        currentLectureId: lectureId,
+        currentSlideIndex: slideIndex,
+        currentDrawingKey: drawingKey,
+        currentLegacyKey: legacyKey
+    }));
+}
+
+/** 예전 순번 키에 있던 필기를 파일명 키로 한 번 옮깁니다. */
+export function migrateDrawing(key, legacyKey) {
+    if (!key || !legacyKey) return;
     whiteboardStore.update(state => {
-        const key = `${lectureId}_${slideIndex}`;
-        const newDrawings = { ...state.slideDrawings, [key]: dataUrl };
-        localStorage.setItem('textbookLayoutDrawings', JSON.stringify(newDrawings));
-        return { ...state, slideDrawings: newDrawings };
+        if (!state.slideDrawings[legacyKey] || state.slideDrawings[key]) return state;
+        const next = { ...state.slideDrawings, [key]: state.slideDrawings[legacyKey] };
+        delete next[legacyKey];
+        return { ...state, slideDrawings: next, storageWarning: persist(next) };
     });
 }
 
-// Helper function to clear a specific slide's drawing
-export function clearDrawing(lectureId, slideIndex) {
+export function saveDrawing(key, legacyKey, dataUrl) {
     whiteboardStore.update(state => {
-        const key = `${lectureId}_${slideIndex}`;
-        const newDrawings = { ...state.slideDrawings };
-        delete newDrawings[key];
-        localStorage.setItem('textbookLayoutDrawings', JSON.stringify(newDrawings));
-        return { ...state, slideDrawings: newDrawings };
+        const next = { ...state.slideDrawings, [key]: dataUrl };
+        if (legacyKey) delete next[legacyKey];
+        return { ...state, slideDrawings: next, storageWarning: persist(next) };
+    });
+}
+
+export function clearDrawing(key, legacyKey) {
+    whiteboardStore.update(state => {
+        const next = { ...state.slideDrawings };
+        if (key) delete next[key];
+        if (legacyKey) delete next[legacyKey];
+        return { ...state, slideDrawings: next, storageWarning: persist(next) };
     });
 }
