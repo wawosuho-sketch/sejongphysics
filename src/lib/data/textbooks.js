@@ -146,7 +146,18 @@ export const textbooks = [
     badge: "MECHANICS & ENERGY",
     description: "물체의 운동과 에너지를 탐구하는 역학과 에너지 교과서",
     school: "세종고등학교",
-    homeworkUrl: "https://clipo.ai/students/homeworks/4OA4S9_cTE-y96CD1o3ySQ",
+    guides: [
+      {
+        id: "sensor_lab",
+        title: "스마트폰 센서 물리실험",
+        pdf: "resources/스마트폰 센서 물리실험 수행.pdf"
+      },
+      {
+        id: "thermal_inquiry",
+        title: "열에너지 관련 기술탐구",
+        pdf: "resources/열에너지 관련 기술탐구 수행 안내.pdf"
+      }
+    ],
     problems: [
       {
         id: "mech_relativity_problems",

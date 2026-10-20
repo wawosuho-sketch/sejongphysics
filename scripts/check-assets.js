@@ -38,6 +38,9 @@ for (const name of dataFiles) {
                     expect(problem.solution, `${book.id}/${problem.id} solution`);
                 }
             }
+            for (const guide of book.guides || []) {
+                expect(guide.pdf, `${book.id}/${guide.id} guide`);
+            }
         }
         continue;
     }

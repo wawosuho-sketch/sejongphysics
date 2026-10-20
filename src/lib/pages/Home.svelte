@@ -16,6 +16,16 @@
     $: activeBook = textbooks.find(b => b.id === selectedBookId) || textbooks[0];
     $: lectures = activeBook.lectures;
     $: problems = activeBook.problems;
+    $: guides = activeBook.guides || [];
+
+    function resourceHref(pdf) {
+        const rel = pdf.startsWith("/") ? pdf.slice(1) : pdf;
+        return encodeURI(import.meta.env.BASE_URL + rel);
+    }
+
+    function fileName(pdf) {
+        return pdf.split("/").pop();
+    }
 
     $: if (initialBookId && textbooks.some(b => b.id === initialBookId)) {
         selectedBookId = initialBookId;
@@ -75,9 +85,9 @@
     </section>
 
     <!-- Action Center -->
-    {#if activeBook.homeworkUrl || (problems && problems.length > 0)}
+    {#if activeBook.homeworkUrl || guides.length > 0 || (problems && problems.length > 0)}
     <section class="action-center action-animate">
-        <div class="action-grid" class:single-card={!activeBook.homeworkUrl || !problems || problems.length === 0}>
+        <div class="action-grid" class:single-card={(activeBook.homeworkUrl || guides.length > 0 ? 1 : 0) + (problems && problems.length > 0 ? 1 : 0) < 2}>
             <!-- Homework Submission -->
             {#if activeBook.homeworkUrl}
             <a href={activeBook.homeworkUrl} target="_blank" rel="noopener noreferrer" class="action-card primary-action">
@@ -90,6 +100,29 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </div>
             </a>
+            {/if}
+
+            {#if guides.length > 0}
+            <div class="action-card secondary-action guides-action">
+                <div class="action-header">
+                    <div class="action-icon">📝</div>
+                    <div class="action-content">
+                        <h3>수행평가 안내</h3>
+                        <p>안내문을 브라우저에서 열고, 필요하면 파일로 받을 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="guide-list">
+                    {#each guides as guide}
+                        <div class="guide-row">
+                            <span class="guide-title">{guide.title}</span>
+                            <div class="guide-actions">
+                                <a href={resourceHref(guide.pdf)} target="_blank" rel="noopener noreferrer" class="dl-btn">열기</a>
+                                <a href={resourceHref(guide.pdf)} download={fileName(guide.pdf)} class="dl-btn download-btn">받기</a>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+            </div>
             {/if}
 
             <!-- Physics Problems -->
@@ -105,9 +138,9 @@
                 <div class="download-buttons">
                     {#each problems as prob}
                         <div class="problem-group">
-                            <a href={encodeURI(import.meta.env.BASE_URL + (prob.pdf.startsWith('/') ? prob.pdf.slice(1) : prob.pdf))} target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
+                            <a href={resourceHref(prob.pdf)} target="_blank" rel="noopener noreferrer" class="dl-btn">{prob.title}</a>
                             {#if isSolutionVisible(prob)}
-                                <a href={encodeURI(import.meta.env.BASE_URL + (prob.solution.startsWith('/') ? prob.solution.slice(1) : prob.solution))} target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
+                                <a href={resourceHref(prob.solution)} target="_blank" rel="noopener noreferrer" class="dl-btn solution-btn">해설</a>
                             {/if}
                         </div>
                     {/each}
@@ -580,6 +613,48 @@
         background: rgba(16, 185, 129, 0.25);
         border-color: rgba(16, 185, 129, 0.6);
         color: #fff;
+    }
+
+    .guides-action {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .guide-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        width: 100%;
+    }
+
+    .guide-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        padding: 0.55rem 0.65rem;
+    }
+
+    .guide-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        line-height: 1.35;
+    }
+
+    .guide-actions {
+        display: flex;
+        gap: 0.35rem;
+        flex-shrink: 0;
+    }
+
+    .download-btn::before {
+        content: "↓";
+        color: #34d399;
     }
 
     .action-animate {
