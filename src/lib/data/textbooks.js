@@ -194,6 +194,15 @@ export const textbooks = [
         accent: "#eab308"
       },
       {
+        id: "mech_03b",
+        fullId: "mech_03b",
+        title: "상대성이론 추가 (3강보충)",
+        subtitle: "기하학적 중력, 세계선, 광속 불변, 등가 원리, 중력방정식",
+        tag: "I. 시공간과 상대성",
+        image: "/images/thumbnails/mech_03b.webp",
+        accent: "#7c3aed"
+      },
+      {
         id: "mech_04",
         fullId: "mech_04",
         title: "4강. 열역학 법칙과 에너지",
