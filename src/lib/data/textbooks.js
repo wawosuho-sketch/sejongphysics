@@ -197,7 +197,7 @@ export const textbooks = [
         id: "mech_03b",
         fullId: "mech_03b",
         title: "상대성이론 추가 (3강보충)",
-        subtitle: "기하학적 중력, 세계선, 광속 불변, 등가 원리, 중력방정식",
+        subtitle: "기하학적 중력, 등가 원리, 중력방정식, 블랙홀",
         tag: "I. 시공간과 상대성",
         image: "/images/thumbnails/mech_03b.webp",
         accent: "#7c3aed"

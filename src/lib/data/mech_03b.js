@@ -7,7 +7,7 @@ export const lectureData = [
     type: "callout",
     style: "info",
     title: "학습 안내",
-    content: "3강 일반상대성이론을 잇는 보충 자료입니다. 원본 슬라이드 60장을 1번부터 순서대로 두었습니다."
+    content: "3강 일반상대성이론을 잇는 보충 자료입니다. 원본 슬라이드 82장을 1번부터 순서대로 두었습니다."
   },
   {
     type: "section_header",
@@ -99,4 +99,38 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_03b/slide_58.webp" },
   { type: "image", src: "/images/slides/mech_03b/slide_59.webp" },
   { type: "image", src: "/images/slides/mech_03b/slide_60.webp" },
+  {
+    type: "section_header",
+    chapter: "PART 6",
+    title: "Ⅵ. 상대론이 말하는 시공간",
+    subtitle: "운동에 따라 달라지는 시간과 공간, 그 방식은 절대적"
+  },
+  { type: "image", src: "/images/slides/mech_03b/slide_61.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_62.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_63.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_64.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_65.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_66.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_67.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_68.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_69.webp" },
+  {
+    type: "section_header",
+    chapter: "PART 7",
+    title: "Ⅶ. 중력 수축과 블랙홀",
+    subtitle: "임계 질량, 중력 붕괴, 슈바르츠실트 메트릭"
+  },
+  { type: "image", src: "/images/slides/mech_03b/slide_70.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_71.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_72.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_73.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_74.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_75.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_76.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_77.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_78.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_79.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_80.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_81.webp" },
+  { type: "image", src: "/images/slides/mech_03b/slide_82.webp" },
 ];
