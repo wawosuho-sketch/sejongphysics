@@ -210,6 +210,15 @@ export const textbooks = [
         tag: "II. 열과 에너지",
         image: "/images/thumbnails/mech_04.webp",
         accent: "#10b981"
+      },
+      {
+        id: "mech_05",
+        fullId: "mech_05",
+        title: "5강. 탄성력과 단진동",
+        subtitle: "영률과 용수철 상수, 단진동의 주기와 에너지, 작은 각의 단진자",
+        tag: "III. 탄성파와 소리",
+        image: "/images/thumbnails/mech_05.webp",
+        accent: "#2563eb"
       }
     ]
   }
