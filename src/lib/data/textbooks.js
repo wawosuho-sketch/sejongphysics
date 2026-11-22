@@ -160,6 +160,11 @@ export const textbooks = [
     ],
     problems: [
       {
+        id: "mech_exam2_guide",
+        title: "2학년 2학기 2회 학습가이드",
+        pdf: "resources/2학년 2학기 2회 학습가이드.pdf"
+      },
+      {
         id: "mech_relativity_problems",
         title: "역학·특수상대론 문제모음",
         pdf: "resources/역학,특수상대론 문제모음.pdf"
