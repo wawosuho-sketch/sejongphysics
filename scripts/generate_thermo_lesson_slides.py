@@ -724,6 +724,42 @@ def slide_omega_two_steps():
     save(fig, "lesson_omega_two_steps.webp")
 
 
+def slide_omega_stirling():
+    fig, ax = new_slide()
+    title(ax, "왜 반반의 수와 전체 2^(2n)을 같다고 놓을까")
+    ax.text(
+        0.55, 7.72,
+        "앞 장의 입자 수 N을 2n이라 두면, 반반의 수는 C(2n, n)이고 전체는 2^(2n)입니다. 두 수는 다릅니다.",
+        fontsize=17, color=MUTED,
+    )
+
+    box(ax, 0.4, 1.55, 7.5, 5.5, "#eff6ff", BLUE)
+    ax.text(0.75, 6.5, "첫째. 확률이 정중앙에 몰립니다", fontsize=20, color=BLUE, fontweight="bold")
+    ax.text(0.75, 5.7, "전체 경우의 수 2^(2n)을 펼치면", fontsize=17, color=INK)
+    ax.text(0.75, 5.05, "C(2n, 0) + ... + C(2n, n) + ... + C(2n, 2n)", fontsize=16, color=INK, fontweight="bold")
+    ax.text(0.75, 4.2, "입자 수가 10^23개쯤 되면", fontsize=17, color=INK)
+    ax.text(0.75, 3.55, "한쪽으로 쏠리는 경우는 사실상 0이고,", fontsize=17, color=INK)
+    ax.text(0.75, 2.9, "반반인 C(2n, n)과 그 근처에", fontsize=17, color=INK)
+    ax.text(0.75, 2.2, "경우의 수가 바늘처럼 몰립니다.", fontsize=18, color=BLUE, fontweight="bold")
+
+    box(ax, 8.15, 1.55, 7.45, 5.5, "#ecfdf5", OK)
+    ax.text(8.5, 6.5, "둘째. 엔트로피는 로그를 씌웁니다", fontsize=20, color=OK, fontweight="bold")
+    ax.text(8.5, 5.75, "S  =  k ln Ω", fontsize=22, color=INK, fontweight="bold")
+    ax.text(8.5, 5.0, "스털링 근사     ln x!  ~  x ln x - x", fontsize=17, color=INK)
+    ax.text(8.5, 4.15, "조합에 로그를 씌우면", fontsize=16, color=MUTED)
+    ax.text(8.5, 3.55, "ln C(2n, n) = ln(2n)! - 2 ln n!", fontsize=16, color=INK)
+    ax.text(8.5, 2.9, "~  2n ln 2", fontsize=22, color=OK, fontweight="bold")
+    ax.text(8.5, 2.15, "전체에 로그를 씌우면    ln 2^(2n) = 2n ln 2", fontsize=16, color=INK, fontweight="bold")
+
+    box(ax, 0.4, 0.32, 15.2, 1.0, "#f0fdf4", OK)
+    ax.text(
+        0.75, 0.82,
+        "확률이 반반 근처에 몰리고, 로그를 씌우면 두 값이 같습니다.  그래서 조합 대신 2^(2n)을 씁니다.",
+        fontsize=17, color=OK, fontweight="bold", va="center",
+    )
+    save(fig, "lesson_omega_stirling.webp")
+
+
 if __name__ == "__main__":
     slide_pressure_question()
     slide_collision()
@@ -751,4 +787,5 @@ if __name__ == "__main__":
     slide_four_processes_compare()
     slide_omega_two_faces()
     slide_omega_two_steps()
-    print("26 lesson slides")
+    slide_omega_stirling()
+    print("27 lesson slides")

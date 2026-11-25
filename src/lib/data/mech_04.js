@@ -296,6 +296,7 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/lesson_free_count.webp" },
   { type: "image", src: "/images/slides/mech_04/lesson_omega_two_faces.webp" },
   { type: "image", src: "/images/slides/mech_04/lesson_omega_two_steps.webp" },
+  { type: "image", src: "/images/slides/mech_04/lesson_omega_stirling.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_146.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_147.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_148.webp" },
