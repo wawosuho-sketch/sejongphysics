@@ -760,6 +760,116 @@ def slide_omega_stirling():
     save(fig, "lesson_omega_stirling.webp")
 
 
+def slide_bit_erase():
+    fig, ax = new_slide()
+    title(ax, "1비트를 지우면 경우의 수가 반으로 줄어듭니다")
+    ax.text(
+        0.55, 7.72,
+        "0인지 1인지 모르는 비트를 0으로 덮어쓰면, 가능한 상태가 하나로 줄어듭니다.",
+        fontsize=17, color=MUTED,
+    )
+
+    box(ax, 0.4, 2.05, 7.35, 5.0, "#eff6ff", BLUE)
+    ax.text(0.8, 6.4, "지우기 전", fontsize=22, color=BLUE, fontweight="bold")
+    ax.text(0.8, 5.45, "W  =  2", fontsize=32, color=INK, fontweight="bold")
+    ax.text(0.8, 4.55, "0일 수도 있고, 1일 수도 있습니다.", fontsize=18, color=INK)
+    ax.text(0.8, 3.85, "비트가 있을 수 있는 상태가 두 가지입니다.", fontsize=18, color=INK)
+    box(ax, 0.9, 2.4, 2.5, 0.95, "white", BLUE)
+    ax.text(2.15, 2.88, "0", fontsize=24, color=BLUE, ha="center", va="center", fontweight="bold")
+    box(ax, 3.85, 2.4, 2.5, 0.95, "white", BLUE)
+    ax.text(5.1, 2.88, "1", fontsize=24, color=BLUE, ha="center", va="center", fontweight="bold")
+
+    box(ax, 8.15, 2.05, 7.45, 5.0, "#ecfdf5", OK)
+    ax.text(8.55, 6.4, "0으로 지운 뒤", fontsize=22, color=OK, fontweight="bold")
+    ax.text(8.55, 5.45, "W  =  1", fontsize=32, color=INK, fontweight="bold")
+    ax.text(8.55, 4.55, "상태는 0 하나만 남습니다.", fontsize=18, color=INK)
+    ax.text(8.55, 3.85, "1일 가능성은 더 이상 없습니다.", fontsize=18, color=INK)
+    box(ax, 10.15, 2.4, 3.4, 0.95, "white", OK)
+    ax.text(11.85, 2.88, "0", fontsize=24, color=OK, ha="center", va="center", fontweight="bold")
+
+    box(ax, 0.4, 0.35, 15.2, 1.4, "#f8fafc", "#cbd5e1")
+    ax.text(0.75, 1.15, "경우의 수가 2에서 1로 줄어듭니다.", fontsize=18, color=INK, fontweight="bold")
+    ax.text(0.75, 0.6, "분자 하나를 한쪽 방에만 남기는 압축과 같은 과정입니다.", fontsize=17, color=MUTED)
+    save(fig, "lesson_bit_erase.webp")
+
+
+def slide_bit_piston():
+    fig, ax = new_slide()
+    title(ax, "한쪽 방으로 압축하면 열이 방출됩니다")
+    ax.text(0.55, 7.72, "비트의 0과 1을, 분자 하나가 있을 수 있는 두 방으로 생각합니다.", fontsize=17, color=MUTED)
+
+    ax.text(0.6, 6.85, "지우기 전    W = 2", fontsize=16, color=BLUE, fontweight="bold")
+    ax.add_patch(Rectangle((0.6, 4.9), 6.7, 1.7, facecolor="#dbeafe", edgecolor=BLUE, lw=2))
+    ax.text(2.3, 6.2, "0", fontsize=18, color=BLUE, ha="center", fontweight="bold")
+    ax.text(5.6, 6.2, "1", fontsize=18, color=BLUE, ha="center", fontweight="bold")
+    ax.add_patch(Circle((3.95, 5.75), 0.18, facecolor="#f59e0b", edgecolor=WARM, lw=1.5))
+    ax.add_patch(FancyArrowPatch((2.15, 5.25), (5.75, 5.25), arrowstyle="<->", mutation_scale=14, lw=1.8, color=INK))
+
+    ax.text(0.6, 4.4, "압축한 뒤    W = 1", fontsize=16, color=OK, fontweight="bold")
+    ax.add_patch(Rectangle((0.6, 2.15), 3.35, 1.85, facecolor="#d1fae5", edgecolor=OK, lw=2))
+    ax.add_patch(Rectangle((3.95, 2.15), 3.35, 1.85, facecolor="#f8fafc", edgecolor="#cbd5e1", lw=1.5))
+    ax.add_patch(Rectangle((3.78, 2.15), 0.24, 1.85, facecolor="#334155", edgecolor=LINE))
+    ax.add_patch(Circle((2.15, 3.05), 0.18, facecolor="#f59e0b", edgecolor=WARM, lw=1.5))
+    ax.text(2.15, 3.6, "0", fontsize=18, color=OK, ha="center", fontweight="bold")
+    ax.add_patch(FancyArrowPatch((6.7, 3.15), (4.35, 3.15), arrowstyle="-|>", mutation_scale=16, lw=2.2, color=WARM))
+    ax.text(5.6, 3.6, "피스톤", fontsize=15, color=WARM, ha="center", fontweight="bold")
+
+    box(ax, 8.15, 1.35, 7.45, 5.7, "#fff7ed", WARM)
+    ax.text(8.5, 6.4, "세 단계로 보면", fontsize=20, color=WARM, fontweight="bold")
+    ax.text(8.5, 5.5, "1   칸막이가 없으면 양쪽을 오갈 수 있습니다.", fontsize=17, color=INK)
+    ax.text(8.5, 4.75, "2   피스톤으로 왼쪽 방에만 둡니다.", fontsize=17, color=INK)
+    ax.text(8.5, 4.0, "3   압축에 쓴 일은 열로 방출됩니다.", fontsize=17, color=INK)
+    ax.text(8.5, 2.9, "온도를 일정하게 유지하면", fontsize=18, color=INK)
+    ax.text(8.5, 2.2, "방출되는 열은 최소  k T ln 2  입니다.", fontsize=18, color=WARM, fontweight="bold")
+    save(fig, "lesson_bit_piston.webp")
+
+
+def slide_bit_heat():
+    """k_B * 300 * ln 2 = 2.870978e-21 J."""
+    fig, ax = new_slide()
+    title(ax, "줄어든 엔트로피만큼 외부로 열이 방출됩니다")
+    ax.text(0.55, 7.72, "볼츠만의 식과 열역학 제2법칙을 비트 하나에 적용합니다.", fontsize=18, color=MUTED)
+
+    box(ax, 0.4, 5.35, 15.2, 1.85, "#eff6ff", BLUE)
+    ax.text(0.75, 6.7, "비트의 엔트로피 변화", fontsize=18, color=BLUE, fontweight="bold")
+    ax.text(0.75, 5.9, "ΔS  =  k ln 1  -  k ln 2  =  - k ln 2", fontsize=26, color=INK, fontweight="bold")
+
+    box(ax, 0.4, 3.2, 15.2, 1.9, "#fff7ed", WARM)
+    ax.text(0.75, 4.6, "제2법칙    고립계의 엔트로피는 감소하지 않습니다.", fontsize=18, color=WARM, fontweight="bold")
+    ax.text(0.75, 3.75, "비트가  k ln 2  만큼 줄면, 외부는 최소한  k ln 2  만큼 증가해야 합니다.", fontsize=19, color=INK, fontweight="bold")
+
+    box(ax, 0.4, 0.4, 15.2, 2.55, "#ecfdf5", OK)
+    ax.text(0.75, 2.4, "외부로 방출되는 최소 열량     ΔS = Q / T 에서", fontsize=18, color=OK, fontweight="bold")
+    ax.text(0.75, 1.6, "Q  =  T ΔS  =  k T ln 2", fontsize=26, color=INK, fontweight="bold")
+    ax.text(0.75, 0.85, "ΔS는 외부의 증가량입니다.   상온 300 K에서는 비트 하나당 약  2.87 x 10^-21 J", fontsize=18, color=OK, fontweight="bold")
+    save(fig, "lesson_bit_heat.webp")
+
+
+def slide_bit_landauer():
+    fig, ax = new_slide()
+    title(ax, "정보는 지울 때 열이 발생합니다")
+    ax.text(0.55, 7.72, "경우의 수가 줄지 않으면, 이론상 이 열은 발생하지 않을 수 있습니다.", fontsize=18, color=MUTED)
+
+    box(ax, 0.4, 1.7, 7.4, 5.35, "#eff6ff", BLUE)
+    ax.text(0.75, 6.4, "읽거나 복사할 때", fontsize=22, color=BLUE, fontweight="bold")
+    ax.text(0.75, 5.4, "원래의 0과 1이 그대로 남습니다.", fontsize=18, color=INK)
+    ax.text(0.75, 4.6, "경우의 수 W는 변하지 않습니다.", fontsize=18, color=INK)
+    ax.text(0.75, 3.55, "이론상 열 방출이 필요 없습니다.", fontsize=18, color=BLUE, fontweight="bold")
+    ax.text(0.75, 2.35, "저장된 정보가 유지되기 때문입니다.", fontsize=17, color=MUTED)
+
+    box(ax, 8.15, 1.7, 7.45, 5.35, "#fff7ed", WARM)
+    ax.text(8.5, 6.4, "지우거나 덮어쓸 때", fontsize=22, color=WARM, fontweight="bold")
+    ax.text(8.5, 5.4, "두 상태가 하나의 상태로 줄어듭니다.", fontsize=18, color=INK)
+    ax.text(8.5, 4.6, "W :  2  →  1    되돌릴 수 없습니다.", fontsize=18, color=INK)
+    ax.text(8.5, 3.55, "최소 열량   k T ln 2", fontsize=22, color=WARM, fontweight="bold")
+    ax.text(8.5, 2.35, "경우의 수가 감소하기 때문입니다.", fontsize=17, color=MUTED)
+
+    box(ax, 0.4, 0.32, 15.2, 1.15, "#f0fdf4", OK)
+    ax.text(0.7, 0.95, "이 최소 열량을 란다우어의 원리라고 합니다.", fontsize=17, color=OK, fontweight="bold")
+    ax.text(0.7, 0.52, "현재 컴퓨터가 뜨거워지는 주된 원인은 전기 저항입니다.  저항이 없어도 비트를 지울 때의 이 열은 남습니다.", fontsize=15, color=INK)
+    save(fig, "lesson_bit_landauer.webp")
+
+
 if __name__ == "__main__":
     slide_pressure_question()
     slide_collision()
@@ -788,4 +898,8 @@ if __name__ == "__main__":
     slide_omega_two_faces()
     slide_omega_two_steps()
     slide_omega_stirling()
-    print("27 lesson slides")
+    slide_bit_erase()
+    slide_bit_piston()
+    slide_bit_heat()
+    slide_bit_landauer()
+    print("31 lesson slides")

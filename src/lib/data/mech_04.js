@@ -300,5 +300,9 @@ export const lectureData = [
   { type: "image", src: "/images/slides/mech_04/slide_146.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_147.webp" },
   { type: "image", src: "/images/slides/mech_04/slide_148.webp" },
-  { type: "image", src: "/images/slides/mech_04/slide_149.webp" }
+  { type: "image", src: "/images/slides/mech_04/slide_149.webp" },
+  { type: "image", src: "/images/slides/mech_04/lesson_bit_erase.webp" },
+  { type: "image", src: "/images/slides/mech_04/lesson_bit_piston.webp" },
+  { type: "image", src: "/images/slides/mech_04/lesson_bit_heat.webp" },
+  { type: "image", src: "/images/slides/mech_04/lesson_bit_landauer.webp" }
 ];
