@@ -27,6 +27,9 @@
 
     let currentScrubberSlide = 1;
     let isScrubbing = false;
+    let scrubTarget = null;
+    let scrollTimer = 0;
+    let scrubUnlockTimer = 0;
     let brokenSlides = {};
 
     function sourceSlideAt(streamIndex) {
@@ -102,29 +105,29 @@
         };
 
         observer = new IntersectionObserver((entries) => {
+            let arrived = false;
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const slideIndex =
-                        entry.target.getAttribute("data-slide-index");
-                    if (slideIndex) {
-                        const idx = parseInt(slideIndex, 10);
-                        const item = lectureData[idx - 1];
-                        const keys = item
-                            ? drawingKeys(lectureId, item, idx)
-                            : null;
-                        updateUrlSilently(idx);
-                        updateCurrentSlide(
-                            lectureId,
-                            idx,
-                            keys?.key ?? null,
-                            keys?.legacy ?? null,
-                        );
-                        if (!isScrubbing) {
-                            currentScrubberSlide = idx;
-                        }
+                if (!entry.isIntersecting) return;
+                const slideIndex =
+                    entry.target.getAttribute("data-slide-index");
+                if (!slideIndex) return;
+                const idx = parseInt(slideIndex, 10);
+                const item = lectureData[idx - 1];
+                const keys = item
+                    ? drawingKeys(lectureId, item, idx)
+                    : null;
+                if (isScrubbing) {
+                    if (scrubTarget != null && idx === scrubTarget) {
+                        syncSlide(idx, keys);
+                        arrived = true;
                     }
+                    return;
                 }
+                if (arrived) return;
+                syncSlide(idx, keys);
+                currentScrubberSlide = idx;
             });
+            if (arrived) releaseScrubLock();
         }, options);
 
         setTimeout(() => {
@@ -133,20 +136,46 @@
         }, 100);
     }
 
-    function scrollToSlide(index) {
-        setTimeout(() => {
+    function syncSlide(idx, keys = undefined) {
+        const item = lectureData[idx - 1];
+        const resolved =
+            keys === undefined
+                ? item
+                    ? drawingKeys(lectureId, item, idx)
+                    : null
+                : keys;
+        updateUrlSilently(idx);
+        updateCurrentSlide(
+            lectureId,
+            idx,
+            resolved?.key ?? null,
+            resolved?.legacy ?? null,
+        );
+    }
+
+    function releaseScrubLock() {
+        clearTimeout(scrubUnlockTimer);
+        scrubTarget = null;
+        isScrubbing = false;
+    }
+
+    function scrollToSlide(index, behavior = "smooth") {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
             const target = document.querySelector(
                 `.stream-item[data-slide-index="${index}"]`,
             );
-            if (target) {
-                const yOffset = -120; // Account for the header
-                const y =
-                    target.getBoundingClientRect().top +
-                    window.scrollY +
-                    yOffset;
-                window.scrollTo({ top: y, behavior: "smooth" });
+            if (!target) {
+                if (behavior !== "smooth") releaseScrubLock();
+                return;
             }
-        }, 200);
+            const yOffset = -120; // Account for the header
+            const y = Math.max(
+                0,
+                target.getBoundingClientRect().top + window.scrollY + yOffset,
+            );
+            window.scrollTo({ top: y, behavior });
+        }, behavior === "smooth" ? 200 : 0);
     }
 
     function updateUrlSilently(slideIndex) {
@@ -158,19 +187,26 @@
     }
 
     function handleScrubInput(e) {
+        isScrubbing = true;
         currentScrubberSlide = parseInt(e.target.value, 10);
     }
 
-    function handleScrubChange(e) {
-        isScrubbing = true;
-        const targetSlide = parseInt(e.target.value, 10);
-        currentScrubberSlide = targetSlide;
-        scrollToSlide(targetSlide);
-
-        // Lock observer updates until scroll animation completes
+    function handleScrubPointerUp() {
         setTimeout(() => {
-            isScrubbing = false;
-        }, 600);
+            if (scrubTarget == null) releaseScrubLock();
+        }, 50);
+    }
+
+    function handleScrubChange(e) {
+        const targetSlide = parseInt(e.target.value, 10);
+        if (!Number.isFinite(targetSlide)) return;
+        clearTimeout(scrubUnlockTimer);
+        isScrubbing = true;
+        scrubTarget = targetSlide;
+        currentScrubberSlide = targetSlide;
+        syncSlide(targetSlide);
+        scrollToSlide(targetSlide, "auto");
+        scrubUnlockTimer = setTimeout(releaseScrubLock, 800);
     }
 
     function handleKeyDown(e) {
@@ -395,6 +431,8 @@
                 value={currentScrubberSlide}
                 on:input={handleScrubInput}
                 on:change={handleScrubChange}
+                on:pointerup={handleScrubPointerUp}
+                on:pointercancel={handleScrubPointerUp}
                 style="--progress: {((currentScrubberSlide - 1) /
                     Math.max(1, lectureData.length - 1)) *
                     100}%"
@@ -541,6 +579,7 @@
     .image-wrapper {
         position: relative;
         width: 100%;
+        aspect-ratio: 16 / 9;
         border-radius: 16px;
         overflow: hidden;
         box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.6);
@@ -551,7 +590,8 @@
 
     .image-wrapper img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
         display: block;
     }
 
